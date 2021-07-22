@@ -1,0 +1,35 @@
+{% set data= load_setup_py_data() %}
+package:
+  name: "vanward"
+  version: {{ data.get('version') }}
+
+source:
+  path: ../
+
+build:
+  script: python -m pip install --no-deps --ignore-installed .
+  script_env:
+    - PATH
+    - PYTHONPATH
+    - LD_LIBRARY_PATH
+    - PYTHON_BUILD_VERSION
+    - PYTHON_BUILD_LOCATION
+
+requirements:
+  host:
+    - python
+    - pip
+    - setuptools_scm
+    - setuptools
+  run:
+    - python
+    - setuptools
+    - setuptools_scm
+    - jira
+    - pql
+    - pyyaml
+
+about:
+  home: {{ data.get('project_urls')["Source Code"] }}
+  license: {{ data.get('license') }}
+  license_file: LICENSE
