@@ -25,7 +25,6 @@ pipeline {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     sh """
                     source /home/saluser/.setup_dev.sh || echo loading env failed. Continuing...
-                    export PYTHONPATH=$PYTHONPATH:$PWD/python
                     pip install .
                     pip install -r doc/requirements.txt
                     package-docs build

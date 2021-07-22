@@ -131,7 +131,6 @@ To setup the package, do the following.
 
     docker run -it --name {name for container} -v {repository_location}:/home/saluser/develop lsstts/develop-env:{tag}
     cd ~/develop/vanward
-    export PYTHONPATH=$PYTHONPATH:$PWD/python
     pip install .
 
 Building the Documentation
