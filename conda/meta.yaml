@@ -28,6 +28,7 @@ requirements:
     - jira
     - gql
     - pyyaml
+    - gitpython
 
 about:
   home: {{ data.get('project_urls')["Source Code"] }}

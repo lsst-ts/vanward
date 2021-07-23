@@ -24,20 +24,21 @@ User Guide
 .. note::
 
  Three of the scripts below require authentication information provided by a file.
- Please make sure those autherication files are read-only user (600).
+ Please make sure those authentication files are read-only user (600).
 
 Preparing for a XML Release
 ---------------------------
 
 When wrapping up the work for a XML release, which usually kicks off a new cycle build, you need to check if all of the work that is merged into the `ts_xml <https://github.com/lsst-ts/ts_xml.git>`_ repository has a corresponding Jira ticket as specified by the `Reporting Work for XML Release <https://tssw-developer.lsst.io/procedures/reporting-xml-release-work.html>`_.
-The `merge_tickets.py` script handles this type of check and an example usage for the script is shown here:
+The `find_merges_without_release_tickets.py` script handles this type of check and an example usage for the script is shown here:
 
 .. prompt:: bash
 
-  merge_tickets.py "ts_xml 9.0" v9.0.0
+  find_merges_without_release_tickets.py ~/git 9.0 v9.0.0
 
-The first argument is the Releases label used in the CAP Jira project for the given XML release.
-The second argument is the tag on the `ts_xml` repository that represents the previous XML release.
+The first argument is the path to the local clone of the `ts_xml` repository and this will vary depending on where your clone lives.
+The second argument is the numeric portion of the Releases label used in the CAP Jira project for the given XML release.
+The third argument is the tag on the `ts_xml` repository that represents the previous XML release.
 The output of the script will highlight tickets that have been merged on the repository that do not have tickets in the Jira release.
 
 The Jira tickets associated with the release also need to be checked to ensure that they are closed or marked appropriately before considering the XML work for the release wrapped up and ready for building the base artifacts.
@@ -45,9 +46,9 @@ The `release_tickets.py` script handles this type of check and an example usage 
 
 .. prompt:: bash
 
-  release_tickets.py "ts_xml 9.0"
+  release_tickets.py 9.0
 
-The argument is the Releases label used in the CAP Jira project for the given XML release.
+The argument is the numeric portion of the Releases label used in the CAP Jira project for the given XML release.
 
 Both scripts require authentication to the project Jira site.
 Those are provided by a file (`.jira_auth`) in your home directory containing a line each for your Jira username and password.
@@ -83,6 +84,7 @@ In order to make less calls against the GitHub API, all organization repositorie
 This makes the script run for on the order of 15 to 20 seconds before completing.
 The script also requires an access token for API authentication.
 The token string is provided in a file (`.gh_token`) in your home directory containing one line for the token string.
+The authentication token is maintained by the Telescope and Site build and deployment team, so consult that group if the token is necessary for you to use.
 An alternately named and located file can be used.
 Use the `--help` flag on those scripts for more information.
 
@@ -104,6 +106,11 @@ An example usage of the script is shown below:
 
 The above incantation is for a summit deployment.
 
+.. note::
+
+  The script only outputs the string for the announcement.
+  It is up to the user to post that output into the appropriate Slack channel before the deployment.
+
 .. _lsst.ts.vanward.developer_guide:
 
 Developer Guide
@@ -112,7 +119,7 @@ Developer Guide
 Package Setup
 -------------
 
-Since this pacakage contains scripts that leverage services that would require extensive mocking in order to provide unit tests, there are none provided at this time.
+Since this package contains scripts that leverage services that would require extensive mocking in order to provide unit tests, there are none provided at this time.
 Therefore the usual build and test cycle is different for this package.
 If you wish to fix, update or add new scripts to this package, the recommended method for development is to get the T&S development Docker container.
 Instructions for this can be found `here <https://confluence.lsstcorp.org/display/LTS/CSC+Development>`_.
@@ -142,6 +149,15 @@ With the above setup completed, building the package documentation is done by:
 
   cd ~/develop/vanward
   package-docs build
+
+Development Workflow
+--------------------
+
+Since this repository is dedicated to deployment, it follows a different development workflow than normal Telescope and Site packages.
+The main difference is that there is no `develop` branch in the workflow.
+Ticket branches are created from the main branch (currently called `master`) and then pull requested and merged back into the main branch for tagging and release.
+The repository is hooked to Telescope and Site Jenkins jobs for `documentation <https://tssw-ci.lsst.org/view/LSST_TandS/job/LSST_Telescope-and-Site/job/vanward/>`_ and the `conda package <https://tssw-ci.lsst.org/job/vanward/>`_, so pay attention to how those jobs are working.
+Once a tag is created, a tagged conda build should be run to provide folks with the new version.
 
 .. _lsst.ts.vanward.api:
 

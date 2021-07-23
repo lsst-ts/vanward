@@ -13,7 +13,7 @@ from jira import JIRA
 
 import lsst.ts.vanward.ticket_helpers as ticket_helpers
 
-CLOSED_TICKET_STATUS = ["Done", "Won't Fix"]
+CLOSED_TICKET_STATUS = ["Done", "Won't Fix", "Invalid"]
 
 
 def main(opts):
@@ -26,7 +26,9 @@ def main(opts):
     jira_auth = ticket_helpers.get_jira_credentials(opts.token_file)
     js = JIRA(server=ticket_helpers.JIRA_SERVER, basic_auth=jira_auth)
 
-    query = f'project = CAP AND fixVersion = "{opts.xml_version}"'
+    xml_version = f"ts_xml {opts.xml_version}"
+
+    query = f'project = CAP AND fixVersion = "{xml_version}"'
     issues = js.search_issues(query)
     print(f"Number of issues: {len(issues)}")
     for issue in issues:
@@ -58,7 +60,9 @@ if __name__ == "__main__":
         help="Specify path to Jira credentials file.",
     )
 
-    parser.add_argument("xml_version", help="Provided the XML version to check.")
+    parser.add_argument(
+        "xml_version", type=str, help="Provide the XML version to check."
+    )
 
     args = parser.parse_args()
 

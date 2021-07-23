@@ -28,7 +28,9 @@ def main(opts):
     jira_auth = ticket_helpers.get_jira_credentials(opts.token_file)
     js = JIRA(server=ticket_helpers.JIRA_SERVER, basic_auth=jira_auth)
 
-    query = f'project = CAP AND fixVersion = "{opts.xml_version}"'
+    xml_version = f"{XML_DIR} {opts.xml_version}"
+
+    query = f'project = CAP AND fixVersion = "{xml_version}"'
     issues = js.search_issues(query)
     # print(f"Number of issues: {len(issues)}")
     release_tickets = []
@@ -89,7 +91,11 @@ if __name__ == "__main__":
         type=pathlib.Path,
         help=f"Path to where the {XML_DIR} directory lives.",
     )
-    parser.add_argument("xml_version", help="Provide the Jira XML version to check.")
+    parser.add_argument(
+        "xml_version",
+        type=str,
+        help="Provide the Jira XML version to check. NOTE: Only the numeric part of the label is required.",
+    )
 
     parser.add_argument(
         "previous_xml_version", help="Provide the previous Git XML version."
