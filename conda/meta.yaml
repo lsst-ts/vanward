@@ -26,8 +26,9 @@ requirements:
     - setuptools
     - setuptools_scm
     - jira
-    - pql
+    - gql
     - pyyaml
+    - gitpython
 
 about:
   home: {{ data.get('project_urls')["Source Code"] }}
