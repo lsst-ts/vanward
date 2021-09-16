@@ -212,9 +212,16 @@ def main(opts):
         else:
             repository_name = package
         try:
-            software_versions[package].latest = fixup_version(
-                repository_versions[repository_name]
-            )
+            if package == "love_manager":
+                software_versions[package].latest = repository_versions[repository_name]
+            elif "config" in package:
+                software_versions[package].latest = repository_versions[
+                    repository_name
+                ].lstrip("v")
+            else:
+                software_versions[package].latest = fixup_version(
+                    repository_versions[repository_name]
+                )
         except KeyError:
             if repository_name not in check_helpers.RECIPES_HANDLING:
                 print(f"Cannot find {repository_name} in repository list.")

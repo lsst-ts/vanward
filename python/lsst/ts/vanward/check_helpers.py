@@ -82,6 +82,4 @@ REPOSITORY_MAP = {
     "love_frontend": "LOVE-frontend",
     "love_manager": "LOVE-manager",
     "ts_mtaos": "ts_MTAOS",
-    "ts_mtdome": "ts_MTDome",
-    "ts_mtmount": "ts_MTMount",
 }
