@@ -49,6 +49,8 @@ def get_linked_tickets(issue, server):
     links = issue.fields.issuelinks
     for link in links:
         # print(dir(link))
+        if link.type.outward == "is triggering":
+            continue
         try:
             linked_tickets.append(server.issue(link.inwardIssue.key))
         except AttributeError:
