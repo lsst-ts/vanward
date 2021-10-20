@@ -13,7 +13,7 @@ from jira import JIRA
 
 import lsst.ts.vanward.ticket_helpers as ticket_helpers
 
-CLOSED_TICKET_STATUS = ["Done", "Won't Fix", "Invalid"]
+CLOSED_TICKET_STATUS = ["Done", "Won't Fix", "Invalid", "Resolved"]
 
 
 def main(opts):
