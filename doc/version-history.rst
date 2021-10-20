@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.2.0
+------
+
+* Skip *is triggered* linked issues in release_tickets.py
+
 v1.1.0
 ------
 
