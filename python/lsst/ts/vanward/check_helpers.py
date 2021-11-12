@@ -72,6 +72,7 @@ IGNORE_LIST = [
     "black_v",
     "gphoto2",
     "java_v",
+    "obs_lsst",
 ]
 
 RECIPES_HANDLING = ["ts_conda_build", "ts_develop"]
@@ -82,4 +83,5 @@ REPOSITORY_MAP = {
     "love_frontend": "LOVE-frontend",
     "love_manager": "LOVE-manager",
     "ts_mtaos": "ts_MTAOS",
+    "ts_integrationtests": "ts_IntegrationTests",
 }
