@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.3.0
+------
+
+* Added a script to verify that conda packages exist for all cycle packages and versions.
+
 v1.2.1
 ------
 
