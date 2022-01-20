@@ -80,9 +80,6 @@ def main(opts):
             if "ts-ATMCSSimulator==" in line:
                 line = line.replace("ts-ATMCSSimulator", "ts-atmcs-simulator")
                 items[0] = items[0].replace("ts-ATMCSSimulator", "ts-atmcs-simulator")
-            if "ts-ess-csc==" in line:
-                line = line.replace("ts-ess-csc", "ts-ess")
-                items[0] = items[0].replace("ts-ess-csc", "ts-ess")
 
             if items[0] not in packages_to_skip:
                 proc = run(

@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.4.0
+------
+
+* Renamed ts_ess_csc conda package from ts-ess to ts-ess-csc.
+
 v1.3.0
 ------
 
