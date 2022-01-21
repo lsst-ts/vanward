@@ -73,6 +73,13 @@ IGNORE_LIST = [
     "gphoto2",
     "java_v",
     "obs_lsst",
+    "openjdk",
+    "maven",
+    "labjack_file_version",
+    "labjack_python_file_version",
+    "labjack_arch",
+    "labjack_c_version",
+    "labjack_python_version",
 ]
 
 RECIPES_HANDLING = ["ts_conda_build", "ts_develop"]
