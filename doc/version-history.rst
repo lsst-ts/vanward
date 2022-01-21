@@ -5,12 +5,13 @@ Version History
 v1.4.0
 ------
 
-* Renamed ts_ess_csc conda package from ts-ess to ts-ess-csc.
+* Renamed ts_ess_csc conda package from ts-ess to ts-ess-csc
+* Added several labjack items, openjdk and maven to ignore list
 
 v1.3.0
 ------
 
-* Added a script to verify that conda packages exist for all cycle packages and versions.
+* Added a script to verify that conda packages exist for all cycle packages and versions
 
 v1.2.1
 ------
