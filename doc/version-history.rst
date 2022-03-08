@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.4.1
+------
+
+* Remove NCSA test stand from release_annoucement.py script
+
 v1.4.0
 ------
 

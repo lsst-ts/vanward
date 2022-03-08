@@ -10,7 +10,7 @@ def main(opts):
     opts : `argparse.Namespace`
         The script command-line arguments and options.
     """
-    if opts.ncsa or opts.tucson:
+    if opts.tucson:
         upgrade_timezone = "Project Time"
     else:
         upgrade_timezone = "Summit Time"
@@ -18,8 +18,6 @@ def main(opts):
     upgrade_datetime = datetime.strptime(opts.upgrade_date, "%Y-%m-%d")
 
     upgrade_site = None
-    if opts.ncsa:
-        upgrade_site = "NCSA teststand"
     if opts.tucson:
         upgrade_site = "Tucson teststand"
     if opts.summit:
@@ -40,7 +38,7 @@ def main(opts):
         " Once the minimal system is up, another announcement will be made so that all"
     )
     announcement.append(" services can be brought up.")
-    if opts.ncsa:
+    if opts.tucson:
         announcement.append(
             f" When the deployment is complete, I have the entire test stand until {opts.int_test_time}"
         )
@@ -61,12 +59,6 @@ if __name__ == "__main__":
     site_group = parser.add_mutually_exclusive_group()
     site_group.add_argument(
         "-s", "--summit", action="store_true", help="Choose the summit for deployment."
-    )
-    site_group.add_argument(
-        "-n",
-        "--ncsa",
-        action="store_true",
-        help="Choose the NCSA teststand for deployment.",
     )
     site_group.add_argument(
         "-t",
