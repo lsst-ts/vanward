@@ -2,6 +2,14 @@
 Version History
 ===============
 
+v1.5.0
+------
+
+* Update release_announcement.py script for TTS
+
+  * Add system readiness time
+  * Unify and simplify datetime handling from options
+
 v1.4.1
 ------
 
