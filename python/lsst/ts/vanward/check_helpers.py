@@ -91,4 +91,5 @@ REPOSITORY_MAP = {
     "love_manager": "LOVE-manager",
     "ts_mtaos": "ts_MTAOS",
     "ts_integrationtests": "ts_IntegrationTests",
+    "ts_mtaircompressor": "ts_MTAirCompressor",
 }
