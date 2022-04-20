@@ -228,7 +228,9 @@ def main(opts):
 
     for recipe in check_helpers.RECIPES_HANDLING:
         with open(
-            os.path.join(opts.cycle_build_dir, RECIPES_REPO, recipe, "meta.yaml")
+            os.path.join(
+                opts.cycle_build_dir, RECIPES_REPO, recipe, "conda", "meta.yaml"
+            )
         ) as mfile:
             software_versions[recipe].latest = get_version_from_recipe(mfile)
 
