@@ -27,6 +27,7 @@ setuptools.setup(
     packages=setuptools.find_namespace_packages(where="python"),
     package_data={"": ["*.rst", "*.yaml"]},
     scripts=[
+        "bin/check_conda_package_versions.py",
         "bin/check_software_release.py",
         "bin/find_merges_without_release_tickets.py",
         "bin/release_announcement.py",
