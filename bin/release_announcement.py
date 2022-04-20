@@ -39,8 +39,20 @@ def main(opts):
     )
     announcement.append(" services can be brought up.")
     if opts.tucson:
+        system_ready_datetime = datetime.strptime(
+            opts.system_ready_time, "%Y-%m-%dT%H:%M"
+        )
+        int_test_datetime = datetime.strptime(opts.int_test_time, "%Y-%m-%dT%H:%M")
+
+        announcement.append(" All systems must be ready for integration testing by")
         announcement.append(
-            f" When the deployment is complete, I have the entire test stand until {opts.int_test_time}"
+            f" {system_ready_datetime.strftime('%A, %B %d at %H:%M')} {upgrade_timezone}."
+        )
+        announcement.append(
+            " Once the systems are ready, I have the entire test stand until"
+        )
+        announcement.append(
+            f" {int_test_datetime.strftime('%A, %B %d at %H:%M')} {upgrade_timezone}"
         )
         announcement.append(" to perform my integration stress testing.")
     announcement.append(
@@ -68,7 +80,13 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--int-test-time", help="The date/time when integration testing will end."
+        "--system-ready-time",
+        help="The date/time (YYYY-mm-ddTHH:MM) when the system must be ready for testing.",
+    )
+
+    parser.add_argument(
+        "--int-test-time",
+        help="The date/time (YYYY-mm-ddTHH:MM) when integration testing will end.",
     )
 
     parser.add_argument(
