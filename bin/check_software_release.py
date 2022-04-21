@@ -214,10 +214,6 @@ def main(opts):
         try:
             if package == "love_manager":
                 software_versions[package].latest = repository_versions[repository_name]
-            elif "config" in package:
-                software_versions[package].latest = repository_versions[
-                    repository_name
-                ].lstrip("v")
             else:
                 software_versions[package].latest = fixup_version(
                     repository_versions[repository_name]
@@ -228,7 +224,9 @@ def main(opts):
 
     for recipe in check_helpers.RECIPES_HANDLING:
         with open(
-            os.path.join(opts.cycle_build_dir, RECIPES_REPO, recipe, "meta.yaml")
+            os.path.join(
+                opts.cycle_build_dir, RECIPES_REPO, recipe, "conda", "meta.yaml"
+            )
         ) as mfile:
             software_versions[recipe].latest = get_version_from_recipe(mfile)
 

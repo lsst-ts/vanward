@@ -10,6 +10,14 @@ v1.5.0
   * Add system readiness time
   * Unify and simplify datetime handling from options
 
+* Updates for check_software_release.py
+
+  * Fix directory for recipe packages
+  * Add mapping for ts_mtaircompressor package
+  * Fix version handling for config packages
+
+* Added check_conda_package_versions.py to installation
+
 v1.4.1
 ------
 
