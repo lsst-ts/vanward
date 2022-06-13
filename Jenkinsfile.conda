@@ -1,2 +1,2 @@
 @Library('JenkinsShared')_
-CondaPipeline("", "vanward", "lsst.ts.vanward")
+CondaPipeline("", "vanward", "lsst.ts.vanward", "noarch")
