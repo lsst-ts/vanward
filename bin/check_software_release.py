@@ -223,12 +223,15 @@ def main(opts):
                 print(f"Cannot find {repository_name} in repository list.")
 
     for recipe in check_helpers.RECIPES_HANDLING:
-        with open(
-            os.path.join(
-                opts.cycle_build_dir, RECIPES_REPO, recipe, "conda", "meta.yaml"
-            )
-        ) as mfile:
-            software_versions[recipe].latest = get_version_from_recipe(mfile)
+        try:
+            with open(
+                os.path.join(
+                    opts.cycle_build_dir, RECIPES_REPO, recipe, "conda", "meta.yaml"
+                )
+            ) as mfile:
+                software_versions[recipe].latest = get_version_from_recipe(mfile)
+        except KeyError:
+            print(f"Cannot find {recipe} in repository list.")
 
     # Show version differences.
     if opts.verbose:
