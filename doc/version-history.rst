@@ -2,6 +2,15 @@
 Version History
 ===============
 
+v1.6.0
+------
+
+* Switch to pyproject.toml packaging
+* Executable scripts no longer have the .py extension
+* Modules that drive the scripts have the same name but with the .py extension
+* Update find_merges_without_release_tickets to add parent ticket for branch checks
+* Update check_software_release for package changes
+
 v1.5.0
 ------
 
