@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Script to check the current cycle versions of TSSW software against the
 conda repository.
 
@@ -23,6 +21,8 @@ import json
 
 CYCLE_REPO = "ts_cycle_build"
 ENV_FILE = "cycle/cycle.env"
+
+__all__ = ["runner"]
 
 
 def main(opts):
@@ -107,7 +107,7 @@ def main(opts):
         print("Done. All packages were found with the provided version.")
 
 
-if __name__ == "__main__":
+def runner():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(

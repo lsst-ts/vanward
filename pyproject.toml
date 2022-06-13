@@ -16,6 +16,13 @@ version = { attr = "setuptools_scm.get_version" }
 [tool.setuptools.packages.find]
 where = [ "python" ]
 
+[project.scripts]
+check_conda_package_versions = "lsst.ts.vanward.check_conda_package_versions:runner"
+check_software_releases = "lsst.ts.vanward.check_software_releases:runner"
+find_merges_without_release_tickets = "lsst.ts.vanward.find_merges_without_release_tickets:runner"
+release_announcement = "lsst.ts.vanward.release_announcement:runner"
+release_tickets = "lsst.ts.vanward.release_tickets:runner"
+
 [tool.setuptools_scm]
 write_to = "python/lsst/ts/vanward/version.py"
 write_to_template = """

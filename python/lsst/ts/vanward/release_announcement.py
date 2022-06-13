@@ -1,6 +1,7 @@
-#!/usr/bin/env python
 import argparse
 from datetime import datetime
+
+__all__ = ["runner"]
 
 
 def main(opts):
@@ -66,7 +67,7 @@ def main(opts):
     print("".join(announcement))
 
 
-if __name__ == "__main__":
+def runner():
     parser = argparse.ArgumentParser()
     site_group = parser.add_mutually_exclusive_group()
     site_group.add_argument(

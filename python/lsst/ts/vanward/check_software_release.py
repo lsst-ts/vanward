@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Script to check current cycle versions against GitHub repository tags.
 
 Attributes
@@ -26,6 +25,8 @@ CYCLE_REPO = "ts_cycle_build"
 RECIPES_REPO = "ts_recipes"
 ENV_FILE = "cycle/cycle.env"
 GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql"
+
+__all__ = ["runner"]
 
 
 def fixup_version(version_str):
@@ -245,7 +246,7 @@ def main(opts):
         print("No software versions are out of date.")
 
 
-if __name__ == "__main__":
+def runner():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
