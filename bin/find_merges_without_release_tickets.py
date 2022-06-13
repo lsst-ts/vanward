@@ -38,7 +38,6 @@ def main(opts):
         release_tickets.append(issue.key)
         more_tickets = ticket_helpers.get_linked_tickets(issue, js)
         if more_tickets:
-            del release_tickets[-1]
             for ticket in more_tickets:
                 release_tickets.append(ticket.key)
 
