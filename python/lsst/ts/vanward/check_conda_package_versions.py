@@ -76,7 +76,7 @@ def main(opts):
             if "ts-sal==" in line:
                 sal_version = items[1]
             if "ts-idl==" in line:
-                line = line + f"_{xml_version}" + f"_{sal_version}"
+                line = line + f"={xml_version}" + f"_{sal_version}"
             if "ts-ATMCSSimulator==" in line:
                 line = line.replace("ts-ATMCSSimulator", "ts-atmcs-simulator")
                 items[0] = items[0].replace("ts-ATMCSSimulator", "ts-atmcs-simulator")
