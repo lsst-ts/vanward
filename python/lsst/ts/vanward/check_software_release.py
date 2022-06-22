@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Script to check current cycle versions against GitHub repository tags.
 
 Attributes
@@ -26,6 +25,8 @@ CYCLE_REPO = "ts_cycle_build"
 RECIPES_REPO = "ts_recipes"
 ENV_FILE = "cycle/cycle.env"
 GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql"
+
+__all__ = ["runner"]
 
 
 def fixup_version(version_str):
@@ -223,12 +224,15 @@ def main(opts):
                 print(f"Cannot find {repository_name} in repository list.")
 
     for recipe in check_helpers.RECIPES_HANDLING:
-        with open(
-            os.path.join(
-                opts.cycle_build_dir, RECIPES_REPO, recipe, "conda", "meta.yaml"
-            )
-        ) as mfile:
-            software_versions[recipe].latest = get_version_from_recipe(mfile)
+        try:
+            with open(
+                os.path.join(
+                    opts.cycle_build_dir, RECIPES_REPO, recipe, "conda", "meta.yaml"
+                )
+            ) as mfile:
+                software_versions[recipe].latest = get_version_from_recipe(mfile)
+        except KeyError:
+            print(f"Cannot find {recipe} in repository list.")
 
     # Show version differences.
     if opts.verbose:
@@ -242,7 +246,7 @@ def main(opts):
         print("No software versions are out of date.")
 
 
-if __name__ == "__main__":
+def runner():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(

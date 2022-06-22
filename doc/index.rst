@@ -30,11 +30,11 @@ Preparing for a XML Release
 ---------------------------
 
 When wrapping up the work for a XML release, which usually kicks off a new cycle build, you need to check if all of the work that is merged into the `ts_xml <https://github.com/lsst-ts/ts_xml.git>`_ repository has a corresponding Jira ticket as specified by the `Reporting Work for XML Release <https://tssw-developer.lsst.io/procedures/reporting-xml-release-work.html>`_.
-The `find_merges_without_release_tickets.py` script handles this type of check and an example usage for the script is shown here:
+The `find_merges_without_release_tickets` script handles this type of check and an example usage for the script is shown here:
 
 .. prompt:: bash
 
-  find_merges_without_release_tickets.py ~/git 9.0 v9.0.0
+  find_merges_without_release_tickets ~/git 9.0 v9.0.0
 
 The first argument is the path to the local clone of the `ts_xml` repository and this will vary depending on where your clone lives.
 The second argument is the numeric portion of the Releases label used in the CAP Jira project for the given XML release.
@@ -42,11 +42,11 @@ The third argument is the tag on the `ts_xml` repository that represents the pre
 The output of the script will highlight tickets that have been merged on the repository that do not have tickets in the Jira release.
 
 The Jira tickets associated with the release also need to be checked to ensure that they are closed or marked appropriately before considering the XML work for the release wrapped up and ready for building the base artifacts.
-The `release_tickets.py` script handles this type of check and an example usage is shown here:
+The `release_tickets` script handles this type of check and an example usage is shown here:
 
 .. prompt:: bash
 
-  release_tickets.py 9.0
+  release_tickets 9.0
 
 The argument is the numeric portion of the Releases label used in the CAP Jira project for the given XML release.
 
@@ -59,7 +59,7 @@ Preparing for a Cycle Build
 ---------------------------
 
 When readying for a cycle build, which generates the container images, the software versions contained within the `ts_cycle_build <https://github.com/lsst-ts/ts_cycle_build.git>`_ repository need to be checked against the latest tags in the associated repositories.
-The `check_software_release.py` script helps with this check.
+The `check_software_release` script helps with this check.
 It requires that the `ts_cycle_build` and the `ts_recipes <https://github.com/lsst-ts/ts_recipes.git>`_ are cloned to the same directory on your machine.
 `ts_cycle_build` should be made up-to-date on the master branch in order to ensure that all previous cycle revisions have been accounted for.
 The same goes for the `ts_recipe` clone.
@@ -67,7 +67,7 @@ The script is run as follows:
 
 .. prompt:: bash
 
-  check_software_release.py <path to repo clones>
+  check_software_release <path to repo clones>
 
 The script reads the `cycle/cycle.env` file from the `ts_cycle_build` repository, queries organization GitHub repositories for the latest tag and compares the software versions to see if there are any differences.
 If there are any differences, they are reported and look something like:
@@ -92,7 +92,7 @@ Preparing for Deployment to a Site
 ----------------------------------
 
 When preparing for deploying a cycle build to a site (summit or a teststand), the best practice is to place an announcement on the appropriate Slack channel before the deployment.
-The `release_announcement.py` script can help with this task.
+The `release_announcement` script can help with this task.
 It has flags to support multiple sites, but only one of those flags can be specified for a given run of the script.
 The date and time of the deployment as well as the cycle build number needs to be provided to the script.
 The time of the deployment is specified in the local time of the site as the script does no time zone conversion.
@@ -102,7 +102,7 @@ An example usage of the script is shown below:
 
 .. prompt:: bash
 
-  release_announcement.py -s 2021-06-29 17:00 21
+  release_announcement -s 2021-06-29 17:00 21
 
 The above incantation is for a summit deployment.
 

@@ -80,9 +80,12 @@ IGNORE_LIST = [
     "labjack_arch",
     "labjack_c_version",
     "labjack_python_version",
+    "summit_utils",
+    "summit_extras",
+    "rubintv_production",
 ]
 
-RECIPES_HANDLING = ["ts_conda_build", "ts_develop"]
+RECIPES_HANDLING = ["ts_conda_build", "ts_develop", "labjack-ljm"]
 
 REPOSITORY_MAP = {
     "love_commander": "LOVE-commander",

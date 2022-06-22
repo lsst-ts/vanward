@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Script to check the current cycle versions of TSSW software against the
 conda repository.
 
@@ -23,6 +21,8 @@ import json
 
 CYCLE_REPO = "ts_cycle_build"
 ENV_FILE = "cycle/cycle.env"
+
+__all__ = ["runner"]
 
 
 def main(opts):
@@ -76,7 +76,7 @@ def main(opts):
             if "ts-sal==" in line:
                 sal_version = items[1]
             if "ts-idl==" in line:
-                line = line + f"_{xml_version}" + f"_{sal_version}"
+                line = line + f"={xml_version}" + f"_{sal_version}"
             if "ts-ATMCSSimulator==" in line:
                 line = line.replace("ts-ATMCSSimulator", "ts-atmcs-simulator")
                 items[0] = items[0].replace("ts-ATMCSSimulator", "ts-atmcs-simulator")
@@ -107,7 +107,7 @@ def main(opts):
         print("Done. All packages were found with the provided version.")
 
 
-if __name__ == "__main__":
+def runner():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(

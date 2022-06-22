@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Script to compare release Jira tickets with merged XML branches.
 
 Attributes
@@ -16,6 +15,8 @@ from jira import JIRA
 import lsst.ts.vanward.ticket_helpers as ticket_helpers
 
 XML_DIR = "ts_xml"
+
+__all__ = ["runner"]
 
 
 def main(opts):
@@ -38,7 +39,6 @@ def main(opts):
         release_tickets.append(issue.key)
         more_tickets = ticket_helpers.get_linked_tickets(issue, js)
         if more_tickets:
-            del release_tickets[-1]
             for ticket in more_tickets:
                 release_tickets.append(ticket.key)
 
@@ -75,7 +75,7 @@ def main(opts):
         print("No missing tickets.")
 
 
-if __name__ == "__main__":
+def runner():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(

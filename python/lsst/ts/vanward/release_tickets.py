@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Script to check on Jira tickets associated with a given XML release.
 
 Attributes
@@ -14,6 +13,8 @@ from jira import JIRA
 import lsst.ts.vanward.ticket_helpers as ticket_helpers
 
 CLOSED_TICKET_STATUS = ["Done", "Won't Fix", "Invalid", "Resolved"]
+
+__all__ = ["runner"]
 
 
 def main(opts):
@@ -49,7 +50,7 @@ def main(opts):
                 )
 
 
-if __name__ == "__main__":
+def runner():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
