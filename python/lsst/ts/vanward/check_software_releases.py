@@ -47,7 +47,9 @@ def fixup_version(version_str: str | None) -> str | None:
         return version_str
     fixed_version = version_str.lstrip("v")
     fixed_version = fixed_version.replace(".alpha.", "a")
+    fixed_version = fixed_version.replace(".a.", "a")
     fixed_version = fixed_version.replace(".beta.", "b")
+    fixed_version = fixed_version.replace(".b.", "b")
     fixed_version = fixed_version.replace(".rc.", "rc")
     return fixed_version
 
@@ -90,7 +92,8 @@ def graphql_query(org_name: str, cursor: str | None = None) -> gql.gql:
               edges {{
                 node {{
                   name
-                  refs(refPrefix: "refs/tags/", last: 1) {{
+                  refs(refPrefix: "refs/tags/", first: 1,
+                  orderBy: {{field: TAG_COMMIT_DATE, direction: DESC}}) {{
                     edges {{
                       node {{
                         name
@@ -150,7 +153,7 @@ def get_version_from_recipe(recipe_file: io.TextIOWrapper) -> str:
     `str`
         The container meta package version.
     """
-    values = yaml.safe_load(str(recipe_file))
+    values = yaml.safe_load(recipe_file)
     return values["package"]["version"]
 
 
@@ -183,7 +186,7 @@ def main(opts: argparse.Namespace) -> None:
     transport = gql.transport.requests.RequestsHTTPTransport(
         GITHUB_GRAPHQL_ENDPOINT, headers=header, retries=3
     )
-    client = gql.Client(transport=transport)
+    client = gql.Client(transport=transport, fetch_schema_from_transport=True)
 
     repository_versions = {}
     for organization in check_helpers.ORG_LIST:
@@ -208,32 +211,42 @@ def main(opts: argparse.Namespace) -> None:
 
     # Add the repository versions to the ones gathered from the cycle build.
     repository_map_keys = list(check_helpers.REPOSITORY_MAP.keys())
+    recipe_map_values = list(check_helpers.RECIPE_MAP.values())
     for package in software_versions:
         if package in repository_map_keys:
             repository_name = check_helpers.REPOSITORY_MAP[package]
         else:
             repository_name = package
         try:
-            if package == "love_manager":
-                software_versions[package].latest = repository_versions[repository_name]
-            else:
-                software_versions[package].latest = fixup_version(
-                    repository_versions[repository_name]
-                )
+            software_versions[package].latest = fixup_version(
+                repository_versions[repository_name]
+            )
         except KeyError:
-            if repository_name not in check_helpers.RECIPES_HANDLING:
+            if (
+                repository_name not in check_helpers.RECIPES_HANDLING
+                and repository_name not in recipe_map_values
+            ):
                 print(f"Cannot find {repository_name} in repository list.")
 
     for recipe in check_helpers.RECIPES_HANDLING:
+        recipe_map_keys = list(check_helpers.RECIPE_MAP.keys())
+        if recipe in recipe_map_keys:
+            recipe_package = check_helpers.RECIPE_MAP[recipe]
+        else:
+            recipe_package = recipe
         try:
             with open(
                 os.path.join(
                     opts.cycle_build_dir, RECIPES_REPO, recipe, "conda", "meta.yaml"
                 )
             ) as mfile:
-                software_versions[recipe].latest = get_version_from_recipe(mfile)
+                software_versions[recipe_package].latest = get_version_from_recipe(
+                    mfile
+                )
         except KeyError:
             print(f"Cannot find {recipe} in repository list.")
+        except TypeError:
+            print(f"Cannot get latest version from {recipe}.")
 
     # Show version differences.
     if opts.verbose:

@@ -8,6 +8,8 @@ ORG_LIST : `list`
     The GitHub organizations to query for the version information.
 RECIPES_HANDLING : `list`
     Packages that are handled using the recipes mechanism.
+RECIPE_MAP: `dict`
+    Mapping of recipes to package names.
 REPOSITORY_MAP : `dict`
     Mapping of packages to GitHub repository names.
 """
@@ -17,6 +19,7 @@ __all__ = [
     "IGNORE_LIST",
     "ORG_LIST",
     "RECIPES_HANDLING",
+    "RECIPE_MAP",
     "REPOSITORY_MAP",
     "SoftwareVersions",
 ]
@@ -54,11 +57,13 @@ IGNORE_LIST = [
     "lsstsqre",
     "stack",
     "dds_community_version",
-    "dds_community_build",
+    "dds_community_build_el7",
+    "dds_community_build_el8",
     "ts_dds_community",
     "ts_dds_community_conda_build",
     "dds_private_version",
-    "dds_private_build",
+    "dds_private_build_el7",
+    "dds_private_build_el8",
     "ts_dds_private",
     "ts_dds_private_conda_build",
     "lsst_sims",
@@ -82,7 +87,16 @@ IGNORE_LIST = [
     "labjack_python_version",
     "summit_utils",
     "summit_extras",
+    "rubintv_summit_utils",
+    "rubintv_summit_extras",
     "rubintv_production",
+    "rubintv_atmospec",
+    "rubintv_spectractor",
+    "vimba_conda_build",
+    "spdlog",
+    "bokeh",
+    "lsst_efd_client",
+    "vimba",
 ]
 
 RECIPES_HANDLING = ["ts_conda_build", "ts_develop", "labjack-ljm"]
@@ -92,7 +106,9 @@ REPOSITORY_MAP = {
     "love_producer": "LOVE-producer",
     "love_frontend": "LOVE-frontend",
     "love_manager": "LOVE-manager",
-    "ts_mtaos": "ts_MTAOS",
     "ts_integrationtests": "ts_IntegrationTests",
     "ts_mtaircompressor": "ts_MTAirCompressor",
+    "robotframework_efd": "robotframework_EFD",
 }
+
+RECIPE_MAP = {"labjack-ljm": "labjack_ljm"}
