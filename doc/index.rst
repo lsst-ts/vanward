@@ -59,7 +59,7 @@ Preparing for a Cycle Build
 ---------------------------
 
 When readying for a cycle build, which generates the container images, the software versions contained within the `ts_cycle_build <https://github.com/lsst-ts/ts_cycle_build.git>`_ repository need to be checked against the latest tags in the associated repositories.
-The `check_software_release` script helps with this check.
+The `check_software_releases` script helps with this check.
 It requires that the `ts_cycle_build` and the `ts_recipes <https://github.com/lsst-ts/ts_recipes.git>`_ are cloned to the same directory on your machine.
 `ts_cycle_build` should be made up-to-date on the master branch in order to ensure that all previous cycle revisions have been accounted for.
 The same goes for the `ts_recipe` clone.
@@ -67,7 +67,7 @@ The script is run as follows:
 
 .. prompt:: bash
 
-  check_software_release <path to repo clones>
+  check_software_releases <path to repo clones>
 
 The script reads the `cycle/cycle.env` file from the `ts_cycle_build` repository, queries organization GitHub repositories for the latest tag and compares the software versions to see if there are any differences.
 If there are any differences, they are reported and look something like:
