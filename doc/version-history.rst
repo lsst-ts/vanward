@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.7.0
+------
+
+* Fix module name for check_software_releases script
+
 v1.6.0
 ------
 
@@ -9,7 +14,7 @@ v1.6.0
 * Executable scripts no longer have the .py extension
 * Modules that drive the scripts have the same name but with the .py extension
 * Update find_merges_without_release_tickets to add parent ticket for branch checks
-* Update check_software_release for package changes
+* Update check_software_releases for package changes
 
 v1.5.0
 ------
@@ -19,7 +24,7 @@ v1.5.0
   * Add system readiness time
   * Unify and simplify datetime handling from options
 
-* Updates for check_software_release.py
+* Updates for check_software_releases.py
 
   * Fix directory for recipe packages
   * Add mapping for ts_mtaircompressor package
@@ -46,7 +51,7 @@ v1.3.0
 v1.2.1
 ------
 
-* Fixed issues with check_software_release.py
+* Fixed issues with check_software_releases.py
 
   * Add obs_lsst to ignore list
   * Map ts_integrationtests
@@ -59,7 +64,7 @@ v1.2.0
 v1.1.0
 ------
 
-* Fixed issues with check_software_release.py
+* Fixed issues with check_software_releases.py
 
   * Fixed repository mapping
   * Fixed handling of repository only packages
