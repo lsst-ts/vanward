@@ -6,6 +6,17 @@ v1.7.0
 ------
 
 * Fix module name for check_software_releases script
+* Updates for check_software_releases.py
+
+  * Updated ignore list
+  * Updated repository mapping
+  * Added recipe mapping and handling
+  * Fixed order of tags from GraphQL call
+  * Fixed version handling
+
+* Added ts-pre-commit-config setup
+* Updated README.md for development
+
 
 v1.6.0
 ------
