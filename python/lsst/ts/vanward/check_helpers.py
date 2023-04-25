@@ -27,7 +27,7 @@ class SoftwareVersions:
     """Holder for the current and latest software versions."""
 
     current: str
-    latest: str = None
+    latest: str | None = None
 
     def is_latest(self) -> bool:
         """

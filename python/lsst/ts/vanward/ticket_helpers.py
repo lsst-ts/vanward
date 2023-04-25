@@ -5,13 +5,17 @@ Attributes
 JIRA_SERVER : `str`
     The URL for the RubinObs project Jira server.
 """
+import pathlib
+
+import jira
+
 __all__ = ["get_jira_credentials", "get_linked_tickets", "JIRA_SERVER"]
 
 
 JIRA_SERVER = "https://jira.lsstcorp.org/"
 
 
-def get_jira_credentials(token_file):
+def get_jira_credentials(token_file: pathlib.Path) -> tuple[str, str]:
     """Get Jira authentication credentials from a file.
 
     Parameters
@@ -30,7 +34,9 @@ def get_jira_credentials(token_file):
     return (uname, pwd)
 
 
-def get_linked_tickets(issue, server):
+def get_linked_tickets(
+    issue: jira.resources.Issue, server: jira.client.JIRA
+) -> list[jira.resources.Issue]:
     """Get ticket links from a specific ticket.
 
     Parameters

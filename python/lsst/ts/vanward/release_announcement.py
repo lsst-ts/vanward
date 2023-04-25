@@ -4,7 +4,7 @@ from datetime import datetime
 __all__ = ["runner"]
 
 
-def main(opts):
+def main(opts: argparse.Namespace) -> None:
     """
     Parameters
     ----------
@@ -67,7 +67,7 @@ def main(opts):
     print("".join(announcement))
 
 
-def runner():
+def runner() -> None:
     parser = argparse.ArgumentParser()
     site_group = parser.add_mutually_exclusive_group()
     site_group.add_argument(

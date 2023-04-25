@@ -12,6 +12,7 @@ RECIPES_REPO : `str`
     The name of the conda recipes repository.
 """
 import argparse
+import io
 import os
 import pathlib
 
@@ -19,7 +20,7 @@ import gql
 import gql.transport.requests
 import yaml
 
-import lsst.ts.vanward.check_helpers as check_helpers
+from . import check_helpers
 
 CYCLE_REPO = "ts_cycle_build"
 RECIPES_REPO = "ts_recipes"
@@ -29,7 +30,7 @@ GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql"
 __all__ = ["runner"]
 
 
-def fixup_version(version_str):
+def fixup_version(version_str: str | None) -> str | None:
     """Remove long names from tags to match conda versioning.
 
     Parameters
@@ -51,7 +52,7 @@ def fixup_version(version_str):
     return fixed_version
 
 
-def graphql_query(org_name, cursor=None):
+def graphql_query(org_name: str, cursor: str | None = None) -> gql.gql:
     """Create a GraphQL query for the GitHub API.
 
     Parameters
@@ -105,7 +106,7 @@ def graphql_query(org_name, cursor=None):
     )
 
 
-def print_rate_limit(info):
+def print_rate_limit(info: dict) -> None:
     """Helper for printing the API rate limit information.
 
     Parameters
@@ -118,7 +119,7 @@ def print_rate_limit(info):
     )
 
 
-def read_secrets(secret_file):
+def read_secrets(secret_file: pathlib.Path) -> str:
     """Get the GitHub token associated with the GraphQL queries.
 
     Parameters
@@ -136,12 +137,12 @@ def read_secrets(secret_file):
     return token.strip()
 
 
-def get_version_from_recipe(recipe_file):
+def get_version_from_recipe(recipe_file: io.TextIOWrapper) -> str:
     """Retrieve a version from a conda meta package.
 
     Parameters
     ----------
-    recipe_file : `file` or `pathlib.Path`
+    recipe_file : `io.TextIOWrapper`
         The conda meta package configuration file.
 
     Returns
@@ -149,11 +150,11 @@ def get_version_from_recipe(recipe_file):
     `str`
         The container meta package version.
     """
-    values = yaml.safe_load(recipe_file)
+    values = yaml.safe_load(str(recipe_file))
     return values["package"]["version"]
 
 
-def main(opts):
+def main(opts: argparse.Namespace) -> None:
     """Function that does all the heavy lifting.
 
     Parameters
@@ -246,7 +247,7 @@ def main(opts):
         print("No software versions are out of date.")
 
 
-def runner():
+def runner() -> None:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
