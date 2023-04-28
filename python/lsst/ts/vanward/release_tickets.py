@@ -10,14 +10,14 @@ import pathlib
 
 from jira import JIRA
 
-import lsst.ts.vanward.ticket_helpers as ticket_helpers
+from . import ticket_helpers
 
 CLOSED_TICKET_STATUS = ["Done", "Won't Fix", "Invalid", "Resolved"]
 
 __all__ = ["runner"]
 
 
-def main(opts):
+def main(opts: argparse.Namespace) -> None:
     """
     Parameters
     ----------
@@ -50,7 +50,7 @@ def main(opts):
                 )
 
 
-def runner():
+def runner() -> None:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(

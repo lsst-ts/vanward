@@ -9,6 +9,9 @@ license = { text = "GPL3" }
 classifiers = [ "Programming Language :: Python :: 3" ]
 urls = { documentation = "https://jira.lsstcorp.org/secure/Dashboard.jspa", repository = "https://github.com/lsst-ts/vanward" }
 dynamic = [ "version" ]
+dependencies = [
+  "jira", "gql", "pyyaml", "gitpython"
+]
 
 [tool.setuptools.dynamic]
 version = { attr = "setuptools_scm.get_version" }
@@ -40,5 +43,5 @@ asyncio_mode = "auto"
 
 [project.optional-dependencies]
 dev = [
-  "documenteer[pipelines]", "jira", "gql", "pyyaml", "gitpython"
+  "documenteer[pipelines]", "pre-commit" 
 ]

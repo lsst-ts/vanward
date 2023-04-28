@@ -14,10 +14,9 @@ This script requires conda to be installed.
 """
 
 import argparse
+import json
 import pathlib
 from subprocess import run
-
-import json
 
 CYCLE_REPO = "ts_cycle_build"
 ENV_FILE = "cycle/cycle.env"
@@ -25,7 +24,7 @@ ENV_FILE = "cycle/cycle.env"
 __all__ = ["runner"]
 
 
-def main(opts):
+def main(opts: argparse.Namespace) -> None:
     """Read the CYCLE env file and look up the specified TSSW packages and
     versions in the conda repository. Finally print a list of the packages and
     the versions that could not be found.
@@ -107,7 +106,7 @@ def main(opts):
         print("Done. All packages were found with the provided version.")
 
 
-def runner():
+def runner() -> None:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(

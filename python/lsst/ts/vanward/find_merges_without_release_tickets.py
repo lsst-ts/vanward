@@ -12,14 +12,14 @@ import pathlib
 import git
 from jira import JIRA
 
-import lsst.ts.vanward.ticket_helpers as ticket_helpers
+from . import ticket_helpers
 
 XML_DIR = "ts_xml"
 
 __all__ = ["runner"]
 
 
-def main(opts):
+def main(opts: argparse.Namespace) -> None:
     """
     Parameters
     ----------
@@ -75,7 +75,7 @@ def main(opts):
         print("No missing tickets.")
 
 
-def runner():
+def runner() -> None:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
