@@ -174,6 +174,9 @@ def main(opts: argparse.Namespace) -> None:
                 continue
             line = line.strip()
             parts = line.split("=")
+            # Skip blank lines
+            if len(parts) < 2:
+                continue
             if parts[0] in check_helpers.IGNORE_LIST:
                 continue
             software_versions[parts[0]] = check_helpers.SoftwareVersions(parts[1])
