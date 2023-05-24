@@ -109,6 +109,7 @@ REPOSITORY_MAP = {
     "ts_integrationtests": "ts_IntegrationTests",
     "ts_mtaircompressor": "ts_MTAirCompressor",
     "robotframework_efd": "robotframework_EFD",
+    "ts_criopy": "ts_cRIOpy",
 }
 
 RECIPE_MAP = {"labjack-ljm": "labjack_ljm"}
