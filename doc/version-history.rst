@@ -2,6 +2,14 @@
 Version History
 ===============
 
+v1.7.1
+------
+
+* Updates for check_software_releases.py
+
+  * Add mapping for ts_criopy package
+  * Protect against blank lines in cycle.env
+
 v1.7.0
 ------
 
