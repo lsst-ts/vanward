@@ -88,6 +88,24 @@ The authentication token is maintained by the Telescope and Site build and deplo
 An alternately named and located file can be used.
 Use the `--help` flag on those scripts for more information.
 
+Preparing Configuration
+-----------------------
+
+When getting ready to prepare the configuration for the first site in the deployment process, the configuration tickets for all the sites can be generated at the same time.
+Those tickets can then be linked to the appropriate cycle build Confluence page.
+The `create_configuration_tickets` script can help with this task.
+This script leverages the `.jira_auth` in your home directory.
+The script requires the cycle build number.
+See the `--help` flag on the script for more detailed information about the options.
+An example usage of the script is shown below:
+
+.. prompt:: bash
+
+  create_configuration_tickets 31
+
+The output from the script will print the issue keys for each site for inclusion into the cycle build Confluence page.
+
+
 Preparing for Deployment to a Site
 ----------------------------------
 
