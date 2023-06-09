@@ -22,6 +22,7 @@ where = [ "python" ]
 [project.scripts]
 check_conda_package_versions = "lsst.ts.vanward.check_conda_package_versions:runner"
 check_software_releases = "lsst.ts.vanward.check_software_releases:runner"
+create_configuration_tickets = "lsst.ts.vanward.create_configuration_tickets:runner"
 find_merges_without_release_tickets = "lsst.ts.vanward.find_merges_without_release_tickets:runner"
 release_announcement = "lsst.ts.vanward.release_announcement:runner"
 release_tickets = "lsst.ts.vanward.release_tickets:runner"

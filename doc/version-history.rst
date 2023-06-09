@@ -2,6 +2,12 @@
 Version History
 ===============
 
+v1.8.0
+------
+
+* Add create_configuration_tickets script and associated module
+* Documentation fixes
+
 v1.7.1
 ------
 
