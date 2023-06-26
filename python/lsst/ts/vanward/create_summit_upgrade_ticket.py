@@ -5,7 +5,7 @@ Attributes
 INPUT_FORMAT : `str`
     The expected format for the date of the summit upgrade.
 INPUT_FORMAT_PLAIN : `str`
-    The expected formate for the date spelled out in letters.
+    The expected format for the date spelled out in letters.
 SUMMIT_COMPONENTS : `list` of `str`
     The Jira components to add to the ticket.
 DISCIPLINES : `list` of `str`
