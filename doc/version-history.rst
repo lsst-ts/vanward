@@ -2,6 +2,12 @@
 Version History
 ===============
 
+v1.9.0
+------
+
+* Add create_summit_upgrade_ticket script and associated module
+* Documentation fixes
+
 v1.8.0
 ------
 
