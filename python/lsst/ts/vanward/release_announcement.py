@@ -11,7 +11,7 @@ def main(opts: argparse.Namespace) -> None:
     opts : `argparse.Namespace`
         The script command-line arguments and options.
     """
-    if opts.tucson:
+    if opts.tucson or opts.base:
         upgrade_timezone = "Project Time"
     else:
         upgrade_timezone = "Summit Time"
@@ -20,7 +20,9 @@ def main(opts: argparse.Namespace) -> None:
 
     upgrade_site = None
     if opts.tucson:
-        upgrade_site = "Tucson teststand"
+        upgrade_site = "Tucson test stand"
+    if opts.base:
+        upgrade_site = "Base test stand"
     if opts.summit:
         upgrade_site = "summit"
 
@@ -39,23 +41,24 @@ def main(opts: argparse.Namespace) -> None:
         " Once the minimal system is up, another announcement will be made so that all"
     )
     announcement.append(" services can be brought up.")
-    if opts.tucson:
-        system_ready_datetime = datetime.strptime(
-            opts.system_ready_time, "%Y-%m-%dT%H:%M"
-        )
-        int_test_datetime = datetime.strptime(opts.int_test_time, "%Y-%m-%dT%H:%M")
+    if not opts.summit:
+        if opts.system_ready_time is not None and opts.int_test_time is not None:
+            system_ready_datetime = datetime.strptime(
+                opts.system_ready_time, "%Y-%m-%dT%H:%M"
+            )
+            int_test_datetime = datetime.strptime(opts.int_test_time, "%Y-%m-%dT%H:%M")
 
-        announcement.append(" All systems must be ready for integration testing by")
-        announcement.append(
-            f" {system_ready_datetime.strftime('%A, %B %d at %H:%M')} {upgrade_timezone}."
-        )
-        announcement.append(
-            " Once the systems are ready, I have the entire test stand until"
-        )
-        announcement.append(
-            f" {int_test_datetime.strftime('%A, %B %d at %H:%M')} {upgrade_timezone}"
-        )
-        announcement.append(" to perform my integration stress testing.")
+            announcement.append(" All systems must be ready for integration testing by")
+            announcement.append(
+                f" {system_ready_datetime.strftime('%A, %B %d at %H:%M')} {upgrade_timezone}."
+            )
+            announcement.append(
+                " Once the systems are ready, the integration testing team has the entire test stand until"
+            )
+            announcement.append(
+                f" {int_test_datetime.strftime('%A, %B %d at %H:%M')} {upgrade_timezone}"
+            )
+            announcement.append(" to perform the integration stress testing.")
     announcement.append(
         " Nublado users: You have until the deployment start time to log out of your nublado instances."
     )
@@ -77,7 +80,13 @@ def runner() -> None:
         "-t",
         "--tucson",
         action="store_true",
-        help="Choose the Tucson teststand for deployment.",
+        help="Choose the Tucson test stand for deployment.",
+    )
+    site_group.add_argument(
+        "-b",
+        "--base",
+        action="store_true",
+        help="Choose the Base test stand for deployment.",
     )
 
     parser.add_argument(
