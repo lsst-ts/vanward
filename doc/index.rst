@@ -23,8 +23,24 @@ User Guide
 
 .. note::
 
- Three of the scripts below require authentication information provided by a file.
+ Five of the scripts below require authentication information provided by a file.
  Please make sure those authentication files are read-only user (600).
+
+Preparing for a Cycle Upgrade
+-----------------------------
+
+When the schedule for the cycle upgrade has been set, a ticket must be created on the `Summit Jira <https://jira.lsstcorp.org/projects/SUMMIT>`_ to inform the summit folks an upgrade is coming.
+The ``create_summit_upgrade_ticket`` script can assist in the creation of that ticket.
+An example usage of the script is shown here:
+
+.. prompt:: bash
+
+  create_summit_upgrade_ticket 31 2023-06-20
+
+This script leverages the ``.jira_auth`` in your home directory.
+There is an optional argument to change the assignee of the ticket.
+The assignee should make sure to attend both the Summit Activities Planning meeting and the Weekly Summit Coordination meeting.
+Use the ``--help`` flag on the script for more information.
 
 Preparing for a XML Release
 ---------------------------
