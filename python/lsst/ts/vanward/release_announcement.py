@@ -68,6 +68,16 @@ def main(opts: argparse.Namespace) -> None:
     announcement.append(" So, please save your work and log out.")
 
     print("".join(announcement))
+    print()
+
+    hour_announcement = [
+        f"Reminder: The Cycle {opts.upgrade_cycle} upgrade will begin at"
+    ]
+    hour_announcement.append(f"{opts.upgrade_time} {upgrade_timezone}.")
+    hour_announcement.append("Nublado users start saving your work and log out.")
+
+    print("Hour prior announcement (schedule via slack.timy.website)")
+    print(" ".join(hour_announcement))
 
 
 def runner() -> None:
