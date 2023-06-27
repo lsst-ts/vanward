@@ -7,6 +7,10 @@ v1.9.0
 
 * Add create_summit_upgrade_ticket script and associated module
 * Documentation fixes
+* Updates for release_announcement.py
+
+  * Add Base test stand handling
+  * Add hour prior announcement message
 
 v1.8.0
 ------

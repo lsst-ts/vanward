@@ -125,12 +125,12 @@ The output from the script will print the issue keys for each site for inclusion
 Preparing for Deployment to a Site
 ----------------------------------
 
-When preparing for deploying a cycle build to a site (summit or a teststand), the best practice is to place an announcement on the appropriate Slack channel before the deployment.
+When preparing for deploying a cycle build to a site (summit or a test stand), the best practice is to place an announcement on the appropriate Slack channel the day before the deployment.
 The ``release_announcement`` script can help with this task.
 It has flags to support multiple sites, but only one of those flags can be specified for a given run of the script.
 The date and time of the deployment as well as the cycle build number needs to be provided to the script.
 The time of the deployment is specified in the local time of the site as the script does no time zone conversion.
-If integration testing is taking place after the deployment at one of the teststands, the ending time of the testing needs to be specified to the script.
+If integration testing is taking place after the deployment at one of the test stands, the ending time of the testing needs to be specified to the script.
 See the ``--help`` flag on the script for more detailed information about the options.
 An example usage of the script is shown below:
 
@@ -144,6 +144,9 @@ The above incantation is for a summit deployment.
 
   The script only outputs the string for the announcement.
   It is up to the user to post that output into the appropriate Slack channel before the deployment.
+
+The script also provides text for a reminder announcement one hour prior to the deployment time.
+That text should be scheduled via the `Timy Slack app interface <https://slack.timy.website/>`_ in the time zone appropriate for the site.
 
 .. _lsst.ts.vanward.developer_guide:
 
