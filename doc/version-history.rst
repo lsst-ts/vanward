@@ -2,6 +2,15 @@
 Version History
 ===============
 
+v1.10.0
+-------
+
+* Add extra information to ticket generated from create_summit_upgrade_ticket
+
+  * Task participants
+  * Description
+  * Labels
+
 v1.9.0
 ------
 
