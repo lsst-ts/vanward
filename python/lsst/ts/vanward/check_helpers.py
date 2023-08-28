@@ -97,6 +97,7 @@ IGNORE_LIST = [
     "bokeh",
     "lsst_efd_client",
     "vimba",
+    "PYTHON_VERSION",
 ]
 
 RECIPES_HANDLING = ["ts_conda_build", "ts_develop", "labjack-ljm"]
@@ -107,9 +108,7 @@ REPOSITORY_MAP = {
     "love_frontend": "LOVE-frontend",
     "love_manager": "LOVE-manager",
     "ts_integrationtests": "ts_IntegrationTests",
-    "ts_mtaircompressor": "ts_MTAirCompressor",
     "robotframework_efd": "robotframework_EFD",
-    "ts_criopy": "ts_cRIOpy",
 }
 
 RECIPE_MAP = {"labjack-ljm": "labjack_ljm"}
