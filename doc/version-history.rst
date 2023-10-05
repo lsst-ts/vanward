@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.10.2
+-------
+
+* Update repository mapping for check_software_releases
+
 v1.10.1
 -------
 
