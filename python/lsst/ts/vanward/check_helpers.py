@@ -109,6 +109,8 @@ REPOSITORY_MAP = {
     "love_manager": "LOVE-manager",
     "ts_integrationtests": "ts_IntegrationTests",
     "robotframework_efd": "robotframework_EFD",
+    "oods": "ctrl_oods",
+    "headerservice": "HeaderService",
 }
 
 RECIPE_MAP = {"labjack-ljm": "labjack_ljm"}
