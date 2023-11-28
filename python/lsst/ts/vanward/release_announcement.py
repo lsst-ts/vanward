@@ -59,6 +59,11 @@ def main(opts: argparse.Namespace) -> None:
                 f" {int_test_datetime.strftime('%A, %B %d at %H:%M')} {upgrade_timezone}"
             )
             announcement.append(" to perform the integration stress testing.")
+    if opts.summit:
+        announcement.append(
+            " Hardware systems should be placed in a safe state that will allow"
+        )
+        announcement.append(" for the shutdown of the associated CSCs.")
     announcement.append(
         " Nublado users: You have until the deployment start time to log out of your nublado instances."
     )
@@ -74,6 +79,8 @@ def main(opts: argparse.Namespace) -> None:
         f"Reminder: The Cycle {opts.upgrade_cycle} upgrade will begin at"
     ]
     hour_announcement.append(f"{opts.upgrade_time} {upgrade_timezone}.")
+    if opts.summit:
+        hour_announcement.append("Hardware should be in a safe state for CSC shutdown.")
     hour_announcement.append("Nublado users start saving your work and log out.")
 
     print("Hour prior announcement (schedule via slack.timy.website)")
