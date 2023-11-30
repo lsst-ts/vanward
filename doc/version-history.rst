@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.10.3
+-------
+
+* Add hardware text for summit in release_annoucement
+
 v1.10.2
 -------
 
