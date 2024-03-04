@@ -29,7 +29,7 @@ User Guide
 Preparing for a Cycle Upgrade
 -----------------------------
 
-When the schedule for the cycle upgrade has been set, a ticket must be created on the `Summit Jira <https://jira.lsstcorp.org/projects/SUMMIT>`_ to inform the summit folks an upgrade is coming.
+When the schedule for the cycle upgrade has been set, a ticket must be created on the `Summit Jira <https://rubinobs.atlassian.net/projects/SUMMIT>`_ to inform the summit folks an upgrade is coming.
 The ``create_summit_upgrade_ticket`` script can assist in the creation of that ticket.
 An example usage of the script is shown here:
 
