@@ -12,7 +12,7 @@ import jira
 __all__ = ["get_jira_credentials", "get_linked_tickets", "JIRA_SERVER"]
 
 
-JIRA_SERVER = "https://jira.lsstcorp.org/"
+JIRA_SERVER = "https://rubinobs.atlassian.net/"
 
 
 def get_jira_credentials(token_file: pathlib.Path) -> tuple[str, str]:
