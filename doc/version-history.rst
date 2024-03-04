@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.11.0
+-------
+
+* Change Jira URL to cloud version
+
 v1.10.3
 -------
 
