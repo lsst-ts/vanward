@@ -39,7 +39,8 @@ def main(opts: argparse.Namespace) -> None:
             summary=summary,
             assignee={"name": opts.assignee},
             components=[{"name": "ts_deployment"}],
-            customfield_10502={"value": JIRA_TEAM},
+            # RubinTeam
+            customfield_10056={"value": JIRA_TEAM},
         )
 
         print(f"{site}: {issue.key}")
@@ -60,7 +61,7 @@ def runner() -> None:
         "-a",
         "--assignee",
         type=str,
-        default="mareuter",
+        default="mreuter@lsst.org",
         help="Set the assignee with a Jira username.",
     )
 
