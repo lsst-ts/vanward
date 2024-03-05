@@ -30,6 +30,8 @@ def main(opts: argparse.Namespace) -> None:
     jira_auth = ticket_helpers.get_jira_credentials(opts.token_file)
     js = JIRA(server=ticket_helpers.JIRA_SERVER, basic_auth=jira_auth)
 
+    assignee = ticket_helpers.get_user_ids(opts.assignee, js)
+
     for site in SITE_LIST:
         summary = f"Ready {site} deployment configuration for Cycle {opts.cycle_number}"
 
@@ -37,7 +39,7 @@ def main(opts: argparse.Namespace) -> None:
             project={"key": "DM"},
             issuetype={"name": "Story"},
             summary=summary,
-            assignee={"name": opts.assignee},
+            assignee={"id": assignee},
             components=[{"name": "ts_deployment"}],
             # RubinTeam
             customfield_10056={"value": JIRA_TEAM},
@@ -61,7 +63,7 @@ def runner() -> None:
         "-a",
         "--assignee",
         type=str,
-        default="mreuter@lsst.org",
+        default="mreuter",
         help="Set the assignee with a Jira username.",
     )
 

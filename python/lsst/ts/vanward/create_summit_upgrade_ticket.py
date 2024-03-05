@@ -114,10 +114,13 @@ def main(opts: argparse.Namespace) -> None:
         f"To occur at {opts.start_time} CLT - all systems will be unusable at this time.",
     ]
 
+    assignee = ticket_helpers.get_user_ids(opts.assignee, js)
+    task_participants = ticket_helpers.get_user_ids(opts.task_participants, js)
+
     issue = js.create_issue(
         project={"key": "SUMMIT"},
         issuetype={"name": "Task"},
-        assignee={"name": opts.assignee},
+        assignee={"id": assignee},
         summary=summary,
         description=(os.linesep * 2).join(description),
         labels=LABELS,
@@ -128,7 +131,7 @@ def main(opts: argparse.Namespace) -> None:
         # End date
         customfield_10061=opts.upgrade_date,
         # Task or Event Participants
-        customfield_10151=[{"name": n} for n in opts.task_participants.split(",")],
+        customfield_10151=[{"id": n} for n in task_participants],
         # Discipline
         customfield_10141=[{"value": v} for v in DISCIPLINES],
     )
@@ -151,14 +154,14 @@ def runner() -> None:
         "-a",
         "--assignee",
         type=str,
-        default="mreuter@lsst.org",
+        default="mreuter",
         help="Set the assignee with a Jira username.",
     )
 
     parser.add_argument(
         "--task-participants",
         type=str,
-        default="mreuter@lsst.org,rbovill@lsst.org",
+        default="mreuter,rbovill",
         help="A comma-delimited string of Jira usernames for the participants involved in the deployment.",
     )
 
