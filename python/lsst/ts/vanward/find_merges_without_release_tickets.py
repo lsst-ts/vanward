@@ -82,7 +82,7 @@ def runner() -> None:
         "-t",
         "--token-file",
         type=pathlib.Path,
-        default="~/.jira_auth",
+        default="~/.auth/jira",
         help="Specify path to Jira credentials file.",
     )
 

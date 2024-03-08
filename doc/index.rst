@@ -24,12 +24,13 @@ User Guide
 .. note::
 
  Five of the scripts below require authentication information provided by a file.
- Please make sure those authentication files are read-only user (600).
+ Please make sure those authentication files are read-only user (600) and in a read-only directory (700) if needed.
+ The Jira auth file must consist of two lines: first is your email and the second is a Jira API token.
 
 Preparing for a Cycle Upgrade
 -----------------------------
 
-When the schedule for the cycle upgrade has been set, a ticket must be created on the `Summit Jira <https://jira.lsstcorp.org/projects/SUMMIT>`_ to inform the summit folks an upgrade is coming.
+When the schedule for the cycle upgrade has been set, a ticket must be created on the `Summit Jira <https://rubinobs.atlassian.net/projects/SUMMIT>`_ to inform the summit folks an upgrade is coming.
 The ``create_summit_upgrade_ticket`` script can assist in the creation of that ticket.
 An example usage of the script is shown here:
 
@@ -37,7 +38,7 @@ An example usage of the script is shown here:
 
   create_summit_upgrade_ticket 31 2023-06-20
 
-This script leverages the ``.jira_auth`` in your home directory.
+This script leverages the ``.auth/jira`` in your home directory.
 There is an optional argument to change the assignee of the ticket.
 The assignee should make sure to attend both the Summit Activities Planning meeting and the Weekly Summit Coordination meeting.
 Use the ``--help`` flag on the script for more information.
@@ -67,7 +68,7 @@ The ``release_tickets`` script handles this type of check and an example usage i
 The argument is the numeric portion of the Releases label used in the CAP Jira project for the given XML release.
 
 Both scripts require authentication to the project Jira site.
-Those are provided by a file (``.jira_auth``) in your home directory containing a line each for your Jira username and password.
+That is provided by a file (``.auth/jira``) in your home directory.
 An alternately named and located file can be used.
 Use the ``--help`` flag on those scripts for more information.
 
@@ -110,7 +111,7 @@ Preparing Configuration
 When getting ready to prepare the configuration for the first site in the deployment process, the configuration tickets for all the sites can be generated at the same time.
 Those tickets can then be linked to the appropriate cycle build Confluence page.
 The ``create_configuration_tickets`` script can help with this task.
-This script leverages the ``.jira_auth`` in your home directory.
+This script leverages the ``.auth/jira`` in your home directory.
 The script requires the cycle build number.
 See the ``--help`` flag on the script for more detailed information about the options.
 An example usage of the script is shown below:

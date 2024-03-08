@@ -9,10 +9,10 @@ import pathlib
 
 import jira
 
-__all__ = ["get_jira_credentials", "get_linked_tickets", "JIRA_SERVER"]
+__all__ = ["get_jira_credentials", "get_linked_tickets", "get_user_ids", "JIRA_SERVER"]
 
 
-JIRA_SERVER = "https://jira.lsstcorp.org/"
+JIRA_SERVER = "https://rubinobs.atlassian.net/"
 
 
 def get_jira_credentials(token_file: pathlib.Path) -> tuple[str, str]:
@@ -62,3 +62,28 @@ def get_linked_tickets(
         except AttributeError:
             linked_tickets.append(server.issue(link.outwardIssue.key))
     return linked_tickets
+
+
+def get_user_ids(users: str, server: jira.client.JIRA) -> str | list[str]:
+    """Get Jira user Ids from names.
+
+    Parameters
+    ----------
+    users : `str`
+        The name or names of users to get Ids for. Multiple users should be
+        specified as a comma-delimited string.
+    server : `jira.client.JIRA`
+        The Jira server instance.
+
+    Returns
+    -------
+    user_ids : `str` or `list[str]`
+        The resolved Jira Ids for the users.
+    """
+    ids = server.search_users(query=users)
+    if "," in users:
+        id = [x.accountId for x in ids]
+    else:
+        id = ids[0].accountId
+
+    return id

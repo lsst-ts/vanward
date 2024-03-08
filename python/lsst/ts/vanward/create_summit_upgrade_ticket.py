@@ -114,19 +114,26 @@ def main(opts: argparse.Namespace) -> None:
         f"To occur at {opts.start_time} CLT - all systems will be unusable at this time.",
     ]
 
+    assignee = ticket_helpers.get_user_ids(opts.assignee, js)
+    task_participants = ticket_helpers.get_user_ids(opts.task_participants, js)
+
     issue = js.create_issue(
         project={"key": "SUMMIT"},
         issuetype={"name": "Task"},
-        assignee={"name": opts.assignee},
+        assignee={"id": assignee},
         summary=summary,
         description=(os.linesep * 2).join(description),
         labels=LABELS,
         priority={"name": "SUMMIT-1"},
         components=[{"name": v} for v in SUMMIT_COMPONENTS],
-        customfield_11303=opts.upgrade_date,
-        customfield_11304=opts.upgrade_date,
-        customfield_14707=[{"name": n} for n in opts.task_participants.split(",")],
-        customfield_14811=[{"value": v} for v in DISCIPLINES],
+        # Start date
+        customfield_10059=opts.upgrade_date,
+        # End date
+        customfield_10061=opts.upgrade_date,
+        # Task or Event Participants
+        customfield_10151=[{"id": n} for n in task_participants],
+        # Discipline
+        customfield_10141=[{"value": v} for v in DISCIPLINES],
     )
 
     print(f"{issue.key}")
@@ -139,7 +146,7 @@ def runner() -> None:
         "-t",
         "--token-file",
         type=pathlib.Path,
-        default="~/.jira_auth",
+        default="~/.auth/jira",
         help="Specify path to Jira credentials file.",
     )
 
@@ -147,14 +154,14 @@ def runner() -> None:
         "-a",
         "--assignee",
         type=str,
-        default="mareuter",
+        default="mreuter",
         help="Set the assignee with a Jira username.",
     )
 
     parser.add_argument(
         "--task-participants",
         type=str,
-        default="mareuter,rbovill",
+        default="mreuter,rbovill",
         help="A comma-delimited string of Jira usernames for the participants involved in the deployment.",
     )
 

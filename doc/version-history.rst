@@ -2,6 +2,14 @@
 Version History
 ===============
 
+v1.11.0
+-------
+
+* Change Jira URL to cloud version
+* Update Jira auth in all scripts that require it
+* Update fields in scripts that create Jira tickets
+* Add Jira user search ticket helper function
+
 v1.10.3
 -------
 
