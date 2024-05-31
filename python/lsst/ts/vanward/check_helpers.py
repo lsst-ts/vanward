@@ -98,6 +98,8 @@ IGNORE_LIST = [
     "lsst_efd_client",
     "vimba",
     "PYTHON_VERSION",
+    "stack_ra",
+    "node",
 ]
 
 RECIPES_HANDLING = ["ts_conda_build", "ts_develop", "labjack-ljm"]
@@ -111,6 +113,8 @@ REPOSITORY_MAP = {
     "robotframework_efd": "robotframework_EFD",
     "oods": "ctrl_oods",
     "headerservice": "HeaderService",
+    "ts_tunablelaser": "ts_TunableLaser",
+    "ts_cbp": "ts_CBP",
 }
 
 RECIPE_MAP = {"labjack-ljm": "labjack_ljm"}

@@ -46,10 +46,15 @@ def fixup_version(version_str: str | None) -> str | None:
     if version_str is None:
         return version_str
     fixed_version = version_str.lstrip("v")
+    fixed_version = fixed_version.replace("-alpha.", "a")
     fixed_version = fixed_version.replace(".alpha.", "a")
+    fixed_version = fixed_version.replace("-a.", "a")
     fixed_version = fixed_version.replace(".a.", "a")
+    fixed_version = fixed_version.replace("-beta.", "b")
     fixed_version = fixed_version.replace(".beta.", "b")
+    fixed_version = fixed_version.replace("-b.", "b")
     fixed_version = fixed_version.replace(".b.", "b")
+    fixed_version = fixed_version.replace("-rc.", "rc")
     fixed_version = fixed_version.replace(".rc.", "rc")
     return fixed_version
 
