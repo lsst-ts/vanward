@@ -2,6 +2,13 @@
 Version History
 ===============
 
+v1.11.1
+-------
+
+* Add dash parsing support to check_software_releases
+* Add node and stack_ra to ignore list
+* Add ts_cbp and ts_tunablelaser repos to rename dictionary
+
 v1.11.0
 -------
 
