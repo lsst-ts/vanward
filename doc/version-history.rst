@@ -2,6 +2,11 @@
 Version History
 ===============
 
+v1.12.0
+-------
+
+* Add move_bucket_ticket_links script
+
 v1.11.1
 -------
 
