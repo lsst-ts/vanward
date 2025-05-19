@@ -5,6 +5,7 @@ Attributes
 JIRA_SERVER : `str`
     The URL for the RubinObs project Jira server.
 """
+
 import pathlib
 
 import jira

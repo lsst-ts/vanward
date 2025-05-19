@@ -7,6 +7,7 @@ SITE_LIST : `list`
 JIRA_TEAM : `str`
     The Jira team for the configuration tickets.
 """
+
 import argparse
 import pathlib
 

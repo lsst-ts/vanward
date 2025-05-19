@@ -1,5 +1,5 @@
-"""Script to move bucket ticket links from one Jira ticket to another.
-"""
+"""Script to move bucket ticket links from one Jira ticket to another."""
+
 import argparse
 import pathlib
 
