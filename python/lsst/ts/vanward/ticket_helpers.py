@@ -8,8 +8,15 @@ JIRA_SERVER : `str`
 import pathlib
 
 import jira
+import jira.resources
 
-__all__ = ["get_jira_credentials", "get_linked_tickets", "get_user_ids", "JIRA_SERVER"]
+__all__ = [
+    "get_jira_credentials",
+    "get_link_key",
+    "get_linked_tickets",
+    "get_user_ids",
+    "JIRA_SERVER",
+]
 
 
 JIRA_SERVER = "https://rubinobs.atlassian.net/"
@@ -32,6 +39,27 @@ def get_jira_credentials(token_file: pathlib.Path) -> tuple[str, str]:
         uname = fd.readline().strip()  # Can't hurt to be paranoid
         pwd = fd.readline().strip()
     return (uname, pwd)
+
+
+def get_link_key(ticket_link: jira.resources.IssueLink) -> str:
+    """Find the Jira issue key from the link.
+
+    Parameters
+    ----------
+    ticket_link : jira.resources.IssueLink.
+        The link to find the Jira key from
+
+    Returns
+    -------
+    str
+        The Jira key from the link.
+    """
+    link_key = None
+    try:
+        link_key = ticket_link.inwardIssue.key
+    except AttributeError:
+        link_key = ticket_link.outwardIssue.key
+    return link_key
 
 
 def get_linked_tickets(
