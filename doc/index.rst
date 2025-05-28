@@ -43,6 +43,22 @@ There is an optional argument to change the assignee of the ticket.
 The assignee should make sure to attend both the Summit Activities Planning meeting and the Weekly Summit Coordination meeting.
 Use the ``--help`` flag on the script for more information.
 
+Preparing for an Incremental Interface Update
+---------------------------------------------
+
+An incremental release will involve just a small portion of the accumulated changes within the XML repository.
+Those changes are tracked by Jira tickets, the majority of them in a single bucket ticket within a Jira release in the CAP project.
+Once the tickets have been identified for the incremental release, the other tickets linked to the bucket ticket in the current version must be moved to a bucket ticket in the next version.
+The ``move_bucket_ticket_links`` script can assist in that movement.
+An example usage of the script is shown here:
+
+.. prompt:: bash
+
+  move_bucket_ticket_links CAP-1075 CAP-1077 DM-49538,DM-50524,DM-50734
+
+This script leverages the ``.auth/jira`` in your home directory.
+Use the ``--help`` flag on the script for more information.
+
 Preparing for a XML Release
 ---------------------------
 

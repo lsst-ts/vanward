@@ -25,6 +25,7 @@ check_software_releases = "lsst.ts.vanward.check_software_releases:runner"
 create_configuration_tickets = "lsst.ts.vanward.create_configuration_tickets:runner"
 create_summit_upgrade_ticket = "lsst.ts.vanward.create_summit_upgrade_ticket:runner"
 find_merges_without_release_tickets = "lsst.ts.vanward.find_merges_without_release_tickets:runner"
+move_bucket_ticket_links = "lsst.ts.vanward.move_bucket_ticket_links:runner"
 release_announcement = "lsst.ts.vanward.release_announcement:runner"
 release_tickets = "lsst.ts.vanward.release_tickets:runner"
 
@@ -45,5 +46,5 @@ asyncio_mode = "auto"
 
 [project.optional-dependencies]
 dev = [
-  "documenteer[pipelines]", "pre-commit" 
+  "documenteer[pipelines]", "pre-commit"
 ]

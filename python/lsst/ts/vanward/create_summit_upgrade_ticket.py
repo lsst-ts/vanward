@@ -13,6 +13,7 @@ DISCIPLINES : `list` of `str`
 LABELS : `list` of `str`
     The labels to annotate the ticket with.
 """
+
 import argparse
 import os
 import pathlib

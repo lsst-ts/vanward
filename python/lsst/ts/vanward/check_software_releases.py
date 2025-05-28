@@ -11,6 +11,7 @@ GITHUB_GRAPHQL_ENDPOINT : `str`
 RECIPES_REPO : `str`
     The name of the conda recipes repository.
 """
+
 import argparse
 import io
 import os

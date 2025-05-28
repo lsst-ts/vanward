@@ -13,6 +13,7 @@ RECIPE_MAP: `dict`
 REPOSITORY_MAP : `dict`
     Mapping of packages to GitHub repository names.
 """
+
 from dataclasses import dataclass
 
 __all__ = [

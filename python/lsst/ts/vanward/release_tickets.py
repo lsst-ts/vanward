@@ -5,6 +5,7 @@ Attributes
 CLOSED_TICKET_STATUS : `list`
     The acceptable states for closed Jira tickets.
 """
+
 import argparse
 import pathlib
 
