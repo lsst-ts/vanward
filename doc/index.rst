@@ -49,19 +49,6 @@ Preparing for an Incremental Interface Update
 An incremental release will involve just a small portion of the accumulated changes within the XML repository.
 Those changes are tracked by Jira tickets, the majority of them in a single bucket ticket within a Jira release in the CAP project.
 
-The ``collect_tickets_to_keep`` script can assist in identifying the tickets that should be included in the incremental release. It does so by checking the commits associated with the Jira tickets and finding the ones that relate to affected components.
-An example usage of the script is shown here:
-
-.. prompt:: bash
-
-  collect_tickets_to_keep CAP-1077 ~/git MTM1M3,HVAC,DREAM  v23.2.0
-
-The first argument is the bucket ticket for the incremental release.
-The second argument is the path to the local clone of the ``ts_xml``.
-The third argument is a comma-separated list of components that are affected by the incremental release.
-The fourth argument is the tag on the ``ts_xml`` repository that represents the previous XML release.
-The output of the script will be a comma-separated list of Jira ticket keys that are associated with the incremental release.
-
 Once the tickets have been identified for the incremental release, the other tickets linked to the bucket ticket in the current version must be moved to a bucket ticket in the next version.
 The ``move_bucket_ticket_links`` script can assist in that movement.
 An example usage of the script is shown here:
@@ -73,6 +60,18 @@ An example usage of the script is shown here:
 The first argument is the Jira key of the bucket ticket in the current version.
 The second argument is the Jira key of the bucket ticket in the next version.
 The third argument is a comma-separated list of Jira ticket keys that need to be kept in the current version's bucket ticket.
+
+The ``collect_ticket_commits`` script can assist in identifying the commit SHAs associated with the Jira tickets that should be included in the incremental release.
+An example usage of the script is shown here:
+
+.. prompt:: bash
+
+  collect_tickets_to_keep CAP-1077 ~/git v23.2.0
+
+The first argument is the bucket ticket for the incremental release.
+The second argument is the path to the local clone of the ``ts_xml``.
+The third argument is the tag on the ``ts_xml`` repository that represents the previous XML release.
+The output of the script will be a list of Jira tickets and their commit SHAs, separated by newlines.
 
 Both scripts leverage the ``.auth/jira`` in your home directory.
 Use the ``--help`` flag on the scripts for more information.

@@ -1,5 +1,4 @@
-"""Script to find tickets in bucket ticket related to XML
-chaneges for specific components."""
+"""Script to find commit sha hashes for Jira tickets."""
 
 import argparse
 import os
@@ -64,7 +63,6 @@ def main(opts: argparse.Namespace) -> None:
     current = js.issue(opts.current_ticket)
 
     xml_repo = git.Repo(opts.xml_dir / XML_DIR)
-    components = {c.strip().lower() for c in opts.components.split(",")}
     linked_tickets = ticket_helpers.get_linked_tickets(current, js)
     merge_commits = set()
 
@@ -88,29 +86,16 @@ def main(opts: argparse.Namespace) -> None:
             continue
 
     relevant_commits = []
-    # check if the files changed relate to the components
+    linked_tickets_keys = {ticket.key for ticket in linked_tickets}
     for commit in merge_commits:
-        for file in commit.stats.files.keys():
-            file_lower = file.lower()
-            if any(comp in file_lower for comp in components):
-                relevant_commits.append(commit)
-                break
+        commit_key = extract_ticket_key(commit.message)
+        if commit_key in linked_tickets_keys:
+            relevant_commits.append(commit)
 
-    relevant_commits_keys = {
-        extract_ticket_key(commit.message) for commit in relevant_commits
-    }
-    # keep tickets that are linked to the relevant commits
-    # or have components in their summary
-    tickets_to_keep = []
-    for ticket in linked_tickets:
-        ticket_summary = ticket.fields.summary.lower()
-        if any(ticket.key in commit for commit in relevant_commits_keys) or any(
-            comp in ticket_summary for comp in components
-        ):
-            tickets_to_keep.append(ticket)
-
-    tickets_to_keep_keys = [ticket.key for ticket in tickets_to_keep]
-    print(",".join(tickets_to_keep_keys))
+    for relevant_commit in relevant_commits:
+        print(
+            f"{extract_ticket_key(relevant_commit.message)}: {relevant_commit.hexsha}"
+        )
 
 
 def runner() -> None:
@@ -126,12 +111,6 @@ def runner() -> None:
         "xml_dir",
         type=pathlib.Path,
         help=f"Path to where the {XML_DIR} directory lives.",
-    )
-
-    parser.add_argument(
-        "components",
-        type=str,
-        help="A comma-delimited list of CSC components considered in an incremental upgrade.",
     )
 
     parser.add_argument(
