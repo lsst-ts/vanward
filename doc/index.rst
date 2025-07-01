@@ -66,12 +66,13 @@ An example usage of the script is shown here:
 
 .. prompt:: bash
 
-  collect_tickets_to_keep CAP-1077 ~/git v23.2.0
+  collect_tickets_to_keep CAP-1077 DM-49940,DM-3328 ~/git v23.2.0
 
 The first argument is the bucket ticket for the incremental release.
-The second argument is the path to the local clone of the ``ts_xml``.
-The third argument is the tag on the ``ts_xml`` repository that represents the previous XML release.
-The output of the script will be a list of Jira tickets and their commit SHAs, separated by newlines.
+The second argument is a comma-separated list of Jira ticket keys that should be kept in the bucket ticket.
+The third argument is the path to the local clone of the ``ts_xml``.
+The fourth argument is the tag on the ``ts_xml`` repository that represents the previous XML release.
+The script outputs the commit SHAs associated with the Jira tickets that should be kept in the bucket ticket.
 
 Both scripts leverage the ``.auth/jira`` in your home directory.
 Use the ``--help`` flag on the scripts for more information.
