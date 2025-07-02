@@ -66,7 +66,7 @@ An example usage of the script is shown here:
 
 .. prompt:: bash
 
-  collect_tickets_to_keep CAP-1077 DM-49940,DM-3328 ~/git v23.2.0
+  collect_tickets_commits CAP-1077 DM-49940,DM-3328 ~/git v23.2.0
 
 The first argument is the bucket ticket for the incremental release.
 The second argument is a comma-separated list of Jira ticket keys that should be kept in the bucket ticket.
