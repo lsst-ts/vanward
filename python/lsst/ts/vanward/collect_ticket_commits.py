@@ -27,11 +27,16 @@ def fetch_remote_branch(repo: git.Repo, branch: str) -> bool:
     `bool`
         True if the branch exists on the remote, False otherwise.
     """
-    remote_ref = f"origin/{branch}"
+    # remote_ref = f"origin/{branch}"
+    local_branch = f"{branch}"
+    repo.remotes.origin.fetch(f"{branch}:{local_branch}")
     try:
-        repo.remotes.origin.fetch(f"{branch}:{remote_ref}")
+        # print(f"{branch}:{remote_ref}")
+        repo.remotes.origin.fetch(f"{branch}:{local_branch}")
+        # repo.remotes.origin.fetch(f"{branch}:{remote_ref}")
         return True
     except Exception:
+        # print(e)
         return False
 
 
@@ -175,7 +180,7 @@ def main(opts: argparse.Namespace) -> None:
     # get all merge commits from the previous XML version to develop
     # and the ones merged into them
     merge_commits = get_merge_commits(xml_repo, opts.previous_xml_version)
-
+    # print(len(merge_commits))
     # get the keys of the linked tickets
     linked_tickets_keys = {ticket.key for ticket in linked_tickets}
 
