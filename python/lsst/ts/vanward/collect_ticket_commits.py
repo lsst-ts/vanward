@@ -5,9 +5,6 @@ import os
 import pathlib
 
 import git
-from jira import JIRA
-
-from . import ticket_helpers
 
 XML_DIR = "ts_xml"
 
@@ -56,40 +53,6 @@ def extract_ticket_key(message: str) -> str:
     return message.split(os.linesep)[0].split("/")[-1]
 
 
-def confirm_tickets_in_bucket(
-    current: object, ticket_list: list[str], js: JIRA
-) -> tuple:
-    """Confirm that the provided tickets are in the current bucket ticket.
-
-    Parameters
-    ----------
-    current : `object`
-        The current bucket ticket object.
-    ticket_list : `list[str]`
-        A list of Jira ticket keys.
-    js : `JIRA`
-        The JIRA client instance.
-
-    Returns
-    -------
-    tuple
-        A tuple containing a list of linked tickets
-        and a list of not found tickets.
-    """
-    linked_tickets = ticket_helpers.get_linked_tickets(current, js)
-    linked_ticket_keys = {ticket.key for ticket in linked_tickets}
-    found_tickets = []
-    not_found = []
-
-    for ticket in ticket_list:
-        if ticket in linked_ticket_keys:
-            found_tickets.append(js.issue(ticket))
-        else:
-            not_found.append(ticket)
-
-    return found_tickets, not_found
-
-
 def get_merge_commits(xml_repo: git.Repo, previous_xml_version: str) -> set[git.Commit]:
     """Get all merge commits from the previous XML version to develop.
 
@@ -131,7 +94,7 @@ def get_merge_commits(xml_repo: git.Repo, previous_xml_version: str) -> set[git.
 
 
 def match_commits_to_tickets(
-    merge_commits: set[git.Commit], linked_tickets_keys: set[str]
+    merge_commits: set[git.Commit], tickets_keys: set[str]
 ) -> tuple[list[git.Commit], set[str]]:
     """Match commits to tickets.
 
@@ -139,7 +102,7 @@ def match_commits_to_tickets(
     ----------
     merge_commits : `set`
         A set of merge commits.
-    linked_tickets_keys : `set`
+    tickets_keys : `set`
         A set of linked Jira ticket keys.
 
     Returns
@@ -153,7 +116,7 @@ def match_commits_to_tickets(
 
     for commit in merge_commits:
         commit_key = extract_ticket_key(commit.message)
-        for ticket_key in linked_tickets_keys:
+        for ticket_key in tickets_keys:
             if ticket_key in commit_key:
                 tickets_with_commits.add(ticket_key)
                 relevant_commits.append(commit)
@@ -168,33 +131,20 @@ def main(opts: argparse.Namespace) -> None:
     opts : `argparse.Namespace`
         The script command-line arguments and options.
     """
-    jira_auth = ticket_helpers.get_jira_credentials(opts.token_file)
-    js = JIRA(server=ticket_helpers.JIRA_SERVER, basic_auth=jira_auth)
-    current = js.issue(opts.current_bucket_ticket)
-
-    # Check that the provided tickets are in the current bucket ticket
-    ticket_list = opts.tickets.split(",")
-    linked_tickets, not_found = confirm_tickets_in_bucket(current, ticket_list, js)
-
     xml_repo = git.Repo(opts.xml_dir / XML_DIR)
     # get all merge commits from the previous XML version to develop
     # and the ones merged into them
     merge_commits = get_merge_commits(xml_repo, opts.previous_xml_version)
-    # print(len(merge_commits))
-    # get the keys of the linked tickets
-    linked_tickets_keys = {ticket.key for ticket in linked_tickets}
+
+    tickets = opts.tickets.split(",")
+    tickets_keys = {ticket.strip() for ticket in tickets}
 
     # match commits to ticket
     relevant_commits, tickets_with_commits = match_commits_to_tickets(
-        merge_commits, linked_tickets_keys
+        merge_commits, tickets_keys
     )
 
-    tickets_with_no_commits = linked_tickets_keys - tickets_with_commits
-
-    if not_found:
-        print(
-            f"The following tickets were not found in the bucket ticket: {', '.join(not_found)}"
-        )
+    tickets_with_no_commits = tickets_keys - tickets_with_commits
 
     if tickets_with_no_commits:
         print(
@@ -212,12 +162,6 @@ def runner() -> None:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "current_bucket_ticket",
-        type=str,
-        help="The Jira key of the current version's bucket ticket.",
-    )
-
-    parser.add_argument(
         "tickets", help="A comma separated list of tickets to get commits from."
     )
 
@@ -229,14 +173,6 @@ def runner() -> None:
 
     parser.add_argument(
         "previous_xml_version", help="Provide the previous Git XML version."
-    )
-
-    parser.add_argument(
-        "-t",
-        "--token-file",
-        type=pathlib.Path,
-        default="~/.auth/jira",
-        help="Specify path to Jira credentials file.",
     )
 
     args = parser.parse_args()
