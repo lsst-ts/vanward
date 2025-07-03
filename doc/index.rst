@@ -48,6 +48,7 @@ Preparing for an Incremental Interface Update
 
 An incremental release will involve just a small portion of the accumulated changes within the XML repository.
 Those changes are tracked by Jira tickets, the majority of them in a single bucket ticket within a Jira release in the CAP project.
+
 Once the tickets have been identified for the incremental release, the other tickets linked to the bucket ticket in the current version must be moved to a bucket ticket in the next version.
 The ``move_bucket_ticket_links`` script can assist in that movement.
 An example usage of the script is shown here:
@@ -56,8 +57,25 @@ An example usage of the script is shown here:
 
   move_bucket_ticket_links CAP-1075 CAP-1077 DM-49538,DM-50524,DM-50734
 
-This script leverages the ``.auth/jira`` in your home directory.
-Use the ``--help`` flag on the script for more information.
+The first argument is the Jira key of the bucket ticket in the current version.
+The second argument is the Jira key of the bucket ticket in the next version.
+The third argument is a comma-separated list of Jira ticket keys that need to be kept in the current version's bucket ticket.
+
+The ``collect_ticket_commits`` script can assist in identifying the commit SHAs associated with the Jira tickets that should be included in the incremental release.
+An example usage of the script is shown here:
+
+.. prompt:: bash
+
+  collect_tickets_commits CAP-1077 DM-49940,DM-3328 ~/git v23.2.0
+
+The first argument is the bucket ticket for the incremental release.
+The second argument is a comma-separated list of Jira ticket keys for which we want to find commit SHAs.
+The third argument is the path to the local clone of the ``ts_xml``.
+The fourth argument is the tag on the ``ts_xml`` repository that represents the previous XML release.
+The script outputs the commit SHAs associated with the Jira tickets that should be kept in the bucket ticket.
+
+Both scripts leverage the ``.auth/jira`` in your home directory.
+Use the ``--help`` flag on the scripts for more information.
 
 Preparing for a XML Release
 ---------------------------
