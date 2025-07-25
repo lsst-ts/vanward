@@ -1,20 +1,20 @@
 <h2>Schedule</h2>
-<p>Close of SAL and XML work: {% if xml_close_date %}<time datetime="{{ xml_close_date }}">{{ xml_close_date }}</time>{% endif %}</p>
-<p>Artifact Build:{% if artifact_build_date %} <time datetime="{{ artifact_build_date }}">{{ artifact_build_date }}</time>{% endif %}</p>
+<p>Close of SAL and XML work: {% if xml_close %}<time datetime="{{ xml_close }}">{{ xml_close }}</time>{% endif %}</p>
+<p>Artifact Build:{% if artifact_build %} <time datetime="{{ artifact_build }}">{{ artifact_build }}</time>{% endif %}</p>
 <ul>
     <li>
         <p>Checklist:</p>
     </li>
 </ul>
-<p>Container Build: Week of {% if container_build_date %}<time datetime="{{ container_build_date }}">{{ container_build_date }}</time>{% endif %}</p>
-<p>Deploy and Test at BTS: Week of {% if bts_deploy_date %}<time datetime="{{ bts_deploy_date }}">{{ bts_deploy_date }}</time>{% endif %}</p>
+<p>Container Build: Week of {% if container_build %}<time datetime="{{ container_build }}">{{ container_build }}</time>{% endif %}</p>
+<p>Deploy and Test at BTS: Week of {% if bts_deploy %}<time datetime="{{ bts_deploy }}">{{ bts_deploy }}</time>{% endif %}</p>
 <ul>
     <li>
         <p>Report:</p>
     </li>
 </ul>
-<p>Deploy to Summit: {% if summit_deploy_date %}<time datetime="{{ summit_deploy_date }}">{{ summit_deploy_date }}</time>{% endif %} </p>
-<p>Deploy to TTS: {% if tts_deploy_date %}<time datetime="{{ tts_deploy_date }}">{{ tts_deploy_date }}</time>{% endif %} </p>
+<p>Deploy to Summit: {% if summit_deploy %}<time datetime="{{ summit_deploy }}">{{ summit_deploy }}</time>{% endif %} </p>
+<p>Deploy to TTS: {% if tts_deploy %}<time datetime="{{ tts_deploy }}">{{ tts_deploy }}</time>{% endif %} </p>
 <h2>Software Versions</h2>
 <p>Valid as of {{ now }}</p>
 <ul>
@@ -78,6 +78,6 @@
     </li>
 </ul>
 <h2>Configuration Tickets</h2>
-<p>TTS:{% if tts_ticket %}{{ tts_ticket }}{% endif %}</p>
-<p>BTS:{% if bts_ticket %}{{ bts_ticket }}{% endif %}</p>
-<p>Summit:{% if summit_ticket %}{{ summit_ticket }}{% endif %}</p>
+<p>TTS:</p>
+<p>BTS:</p>
+<p>Summit:</p>
