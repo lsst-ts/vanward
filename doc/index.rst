@@ -43,6 +43,18 @@ There is an optional argument to change the assignee of the ticket.
 The assignee should make sure to attend both the Summit Activities Planning meeting and the Weekly Summit Coordination meeting.
 Use the ``--help`` flag on the script for more information.
 
+The Cycle Upgrade schedule should also be posted to the appropiate confluence page under the `Software Upgrades section<https://rubinobs.atlassian.net/wiki/spaces/LSSTCOM/pages/53752125/Software+Upgrades>`_.
+The ``create_confluence_page`` script can assist in creating the page.
+An example usage of the script is shown here:
+
+.. prompt:: bash
+
+  create_confluence_page 42
+
+The first argument is the Cycle number for which the page is being created.
+There are also optional arguments to specify dates for the schedule. Use the ``--help`` flag on the script for more information.
+This script also leverages the ``.auth/jira`` in your home directory.
+
 Preparing for an Incremental Interface Update
 ---------------------------------------------
 
