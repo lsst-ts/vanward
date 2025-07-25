@@ -10,7 +10,7 @@ classifiers = [ "Programming Language :: Python :: 3" ]
 urls = { documentation = "https://jira.lsstcorp.org/secure/Dashboard.jspa", repository = "https://github.com/lsst-ts/vanward" }
 dynamic = [ "version" ]
 dependencies = [
-  "jira", "gql", "pyyaml", "gitpython"
+  "jira", "gql", "pyyaml", "gitpython", "atlassian-python-api","Jinja2>=3.0", "beautifulsoup4>=4.12"
 ]
 
 [tool.setuptools.dynamic]
@@ -24,6 +24,7 @@ check_conda_package_versions = "lsst.ts.vanward.check_conda_package_versions:run
 check_software_releases = "lsst.ts.vanward.check_software_releases:runner"
 collect_ticket_commits = "lsst.ts.vanward.collect_ticket_commits:runner"
 create_configuration_tickets = "lsst.ts.vanward.create_configuration_tickets:runner"
+create_confluence_page = "lsst.ts.vanward.create_confluence_page:runner"
 create_summit_upgrade_ticket = "lsst.ts.vanward.create_summit_upgrade_ticket:runner"
 find_merges_without_release_tickets = "lsst.ts.vanward.find_merges_without_release_tickets:runner"
 move_bucket_ticket_links = "lsst.ts.vanward.move_bucket_ticket_links:runner"

@@ -1,0 +1,83 @@
+<h2>Schedule</h2>
+<p>Close of SAL and XML work: {% if xml_close_date %}<time datetime="{{ xml_close_date }}">{{ xml_close_date }}</time>{% endif %}</p>
+<p>Artifact Build:{% if artifact_build_date %} <time datetime="{{ artifact_build_date }}">{{ artifact_build_date }}</time>{% endif %}</p>
+<ul>
+    <li>
+        <p>Checklist:</p>
+    </li>
+</ul>
+<p>Container Build: Week of {% if container_build_date %}<time datetime="{{ container_build_date }}">{{ container_build_date }}</time>{% endif %}</p>
+<p>Deploy and Test at BTS: Week of {% if bts_deploy_date %}<time datetime="{{ bts_deploy_date }}">{{ bts_deploy_date }}</time>{% endif %}</p>
+<ul>
+    <li>
+        <p>Report:</p>
+    </li>
+</ul>
+<p>Deploy to Summit: {% if summit_deploy_date %}<time datetime="{{ summit_deploy_date }}">{{ summit_deploy_date }}</time>{% endif %} </p>
+<p>Deploy to TTS: {% if tts_deploy_date %}<time datetime="{{ tts_deploy_date }}">{{ tts_deploy_date }}</time>{% endif %} </p>
+<h2>Software Versions</h2>
+<p>Valid as of {{ now }}</p>
+<ul>
+    <li>
+        <p>librdkafka : ?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>python-confluent-kafka : ?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>strimzi : ?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>kafka : ?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>schema-registry : ?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>ts_sal_utils RPM : ?-1 (note this is in the public yum repo)</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>ts_xml : ?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>ts_sal : ?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>CSC RPMS: ?-?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>CSC JARs: ?_?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>ts_salobj : ?</p>
+    </li>
+</ul>
+<ul>
+    <li>
+        <p>cycle tag: c00{{ cycle }}</p>
+    </li>
+</ul>
+<h2>Configuration Tickets</h2>
+<p>TTS:{% if tts_ticket %}{{ tts_ticket }}{% endif %}</p>
+<p>BTS:{% if bts_ticket %}{{ bts_ticket }}{% endif %}</p>
+<p>Summit:{% if summit_ticket %}{{ summit_ticket }}{% endif %}</p>

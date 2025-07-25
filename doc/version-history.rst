@@ -6,6 +6,7 @@ v1.12.0
 -------
 
 * Add move_bucket_ticket_links script
+* Add collect_ticket_commits script
 
 v1.11.1
 -------
