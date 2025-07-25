@@ -28,7 +28,7 @@ def prepare_template(opts: argparse.Namespace) -> str:
 
 def main(opts: argparse.Namespace) -> None:
     confluence_auth = ticket_helpers.get_jira_credentials(opts.token_file)
-    cycle = opts.cycle
+    cycle = opts.cycle_number
     confluence = Confluence(
         url=ticket_helpers.JIRA_SERVER,
         username=confluence_auth[0],
@@ -70,15 +70,15 @@ def runner() -> None:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
+        "cycle_number", help="Number of the Cycle to create/update the page for."
+    )
+
+    parser.add_argument(
         "-t",
         "--token-file",
         type=pathlib.Path,
         default="~/.auth/jira",
         help="Specify path to Jira credentials file.",
-    )
-
-    parser.add_argument(
-        "--cycle", help="Number of the Cycle to create/update the page for."
     )
 
     parser.add_argument(
