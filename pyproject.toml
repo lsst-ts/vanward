@@ -10,7 +10,7 @@ classifiers = [ "Programming Language :: Python :: 3" ]
 urls = { documentation = "https://jira.lsstcorp.org/secure/Dashboard.jspa", repository = "https://github.com/lsst-ts/vanward" }
 dynamic = [ "version" ]
 dependencies = [
-  "jira", "gql", "pyyaml", "gitpython", "atlassian-python-api","Jinja2>=3.0"
+  "jira", "gql", "pyyaml", "gitpython", "atlassian-python-api", "Jinja2>=3.0"
 ]
 
 [tool.setuptools.dynamic]
