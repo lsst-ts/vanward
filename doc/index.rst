@@ -41,6 +41,7 @@ An example usage of the script is shown here:
 This script leverages the ``.auth/jira`` in your home directory.
 There is an optional argument to change the assignee of the ticket.
 The assignee should make sure to attend both the Summit Activities Planning meeting and the Weekly Summit Coordination meeting.
+There are also optional arguments to specify a revision (for incremental upgrades) and a list of affected components.
 Use the ``--help`` flag on the script for more information.
 
 The Cycle Upgrade schedule should also be posted to the appropiate confluence page under the `Software Upgrades section<https://rubinobs.atlassian.net/wiki/spaces/LSSTCOM/pages/53752125/Software+Upgrades>`_.

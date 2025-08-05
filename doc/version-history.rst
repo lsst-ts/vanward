@@ -8,6 +8,8 @@ v1.12.0
 * Add move_bucket_ticket_links script
 * Add collect_ticket_commits script
 * Add create_confluence_page script
+* Update create_summit_upgrade_ticket script to support incremental upgrades
+
 
 v1.11.1
 -------
