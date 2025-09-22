@@ -101,6 +101,8 @@ IGNORE_LIST = [
     "PYTHON_VERSION",
     "stack_ra",
     "node",
+    "librdkafka",
+    "python_confluent_kafka",
 ]
 
 RECIPES_HANDLING = ["ts_conda_build", "ts_develop", "labjack-ljm"]
@@ -116,6 +118,8 @@ REPOSITORY_MAP = {
     "headerservice": "HeaderService",
     "ts_tunablelaser": "ts_TunableLaser",
     "ts_cbp": "ts_CBP",
+    "ts_atbuilding": "ts_atbuilding_csc",
+    "ts_m1m3thermal": "ts_M1M3Thermal",
 }
 
 RECIPE_MAP = {"labjack-ljm": "labjack_ljm"}
