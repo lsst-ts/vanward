@@ -1,0 +1,5 @@
+[project]
+title = "Vanward"
+copyright = "2024-25 Association of Universities for Research in Astronomy, Inc. (AURA)"
+base_url = "https://vanward.lsst.io"
+github_url = "https://github.com/lsst-ts/vanward"

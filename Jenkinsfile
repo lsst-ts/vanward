@@ -27,7 +27,7 @@ pipeline {
                     source /home/saluser/.setup_dev.sh || echo loading env failed. Continuing...
                     pip install .
                     pip install -r doc/requirements.txt
-                    package-docs build
+                    sphinx-build -m html doc doc/_build/html
                     ltd upload --product vanward --git-ref ${GIT_BRANCH} --dir doc/_build/html
                     """
                 }
