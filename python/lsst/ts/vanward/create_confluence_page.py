@@ -38,11 +38,6 @@ def main(opts: argparse.Namespace) -> None:
     )
     page = confluence.get_page_by_title(space=SPACE_KEY, title=f"Cycle {cycle} Upgrade")
 
-    if revision > 0:
-        new_html = prepare_template(opts, "incremental_upgrade_section.html")
-    else:
-        new_html = prepare_template(opts, "cycle_upgrade_page.html")
-
     payload: dict[str, Any] = {
         "title": f"Cycle {cycle} Upgrade",
         "type": "page",
@@ -60,13 +55,28 @@ def main(opts: argparse.Namespace) -> None:
             page = confluence.get_page_by_id(page["id"], expand="version,body.storage")
             current_body = page["body"]["storage"]["value"]
             current_version = page["version"]["number"]
-            combined_body = (
-                (current_body + "\n" + new_html) if revision > 0 else new_html
-            )
+            combined_body = current_body
+
+            if revision > 0:
+                combined_body = (
+                    combined_body
+                    + "\n"
+                    + prepare_template(opts, "incremental_upgrade_section.html")
+                )
+
+            if opts.add_request_section:
+                combined_body = (
+                    combined_body
+                    + "\n"
+                    + prepare_template(opts, "request_incremental_upgrade_section.html")
+                )
+
             payload["body"]["storage"]["value"] = combined_body
             payload["version"]["number"] = current_version + 1
             confluence.put(f"/rest/api/content/{page['id']}", data=payload)
+
         else:
+            new_html = prepare_template(opts, "cycle_upgrade_page.html")
             payload["version"] = {"number": 1}
             payload["space"] = {"key": SPACE_KEY}
             payload["ancestors"] = [{"id": PARENT_PAGE_ID}]
