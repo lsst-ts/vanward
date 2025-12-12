@@ -9,6 +9,7 @@ v1.12.0
 * Add collect_ticket_commits script
 * Add create_confluence_page script
 * Update create_summit_upgrade_ticket script to support incremental upgrades
+* Update create_confluence_page script to support incremental upgrades
 
 
 v1.11.1

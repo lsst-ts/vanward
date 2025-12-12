@@ -53,6 +53,7 @@ An example usage of the script is shown here:
   create_confluence_page 42
 
 The first argument is the Cycle number for which the page is being created.
+If a revision is specified with the ``--revision`` flag, an incremental upgrade section is added to the page.
 There are also optional arguments to specify dates for the schedule. Use the ``--help`` flag on the script for more information.
 This script also leverages the ``.auth/jira`` in your home directory.
 
