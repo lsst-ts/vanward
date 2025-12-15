@@ -98,6 +98,30 @@ def valid_version(v: str) -> str:
         return v
 
 
+def parse_cscs(cscs: str) -> str:
+    """Parse the CSCs from a comma-delimited string.
+
+    Parameters
+    ----------
+    cscs : `str`
+        The comma-delimited string of CSCs.
+
+    Returns
+    -------
+    `str`
+        A formatted string of CSC names.
+    """
+    if cscs != "":
+        items = cscs.split(",")
+        if len(items) == 1:
+            return f" and {items[0]}"
+        else:
+            return f", {', '.join(items[:-1])} and {items[-1]}"
+    else:
+        msg = "Must specify at least one CSC for an incremental upgrade."
+        raise argparse.ArgumentTypeError(msg)
+
+
 def main(opts: argparse.Namespace) -> None:
     """
     Parameters
@@ -108,16 +132,29 @@ def main(opts: argparse.Namespace) -> None:
     jira_auth = ticket_helpers.get_jira_credentials(opts.token_file)
     js = JIRA(server=ticket_helpers.JIRA_SERVER, basic_auth=jira_auth)
 
-    summary = f"Control System Cycle {opts.cycle_number} Upgrade"
-    cycle_text = f"Control Software (Cycle {opts.cycle_number})"
-    description = [
-        f"Upgrade of {cycle_text} and XML ({opts.xml_version}) on the summit.",
-        f"To occur at {opts.start_time} CLT - all systems will be unusable at this time.",
-    ]
+    revision = opts.revision
+    if revision == 0:
+        summary = f"Control System Cycle {opts.cycle_number} Upgrade"
+        cycle_text = f"Control Software (Cycle {opts.cycle_number})"
+        description = [
+            f"Upgrade of {cycle_text} and XML ({opts.xml_version}) on the summit.",
+            f"To occur at {opts.start_time} CLT - all systems will be unusable at this time.",
+        ]
+    elif revision > 0:
+        summary = (
+            f"Incremental XML Upgrade (Cycle {opts.cycle_number} Revision {revision})"
+        )
+        cycle_text = f"ScriptQueues{parse_cscs(opts.cscs)}"
+        description = [
+            f"Upgrade of {cycle_text} for XML ({opts.xml_version}) on the summit.",
+            f"To occur at {opts.start_time} CLT.",
+        ]
+    else:
+        msg = "Not a valid revision number. Must be 0 or greater."
+        raise argparse.ArgumentTypeError(msg)
 
     assignee = ticket_helpers.get_user_ids(opts.assignee, js)
     task_participants = ticket_helpers.get_user_ids(opts.task_participants, js)
-
     issue = js.create_issue(
         project={"key": "SUMMIT"},
         issuetype={"name": "Task"},
@@ -162,7 +199,7 @@ def runner() -> None:
     parser.add_argument(
         "--task-participants",
         type=str,
-        default="mreuter,rbovill",
+        default="mreuter,rbovill,aibsen",
         help="A comma-delimited string of Jira usernames for the participants involved in the deployment.",
     )
 
@@ -173,6 +210,22 @@ def runner() -> None:
         default="09:00",
         help=f"The time the deployment is to begin. \
                Always refers to CLT and in {INPUT_TIME_FORMAT_PLAIN} format.",
+    )
+
+    parser.add_argument(
+        "-r",
+        "--revision",
+        type=int,
+        default=0,
+        help="The revision within the cycle. If 0, the ticket will be for a full upgrade, \
+            otherwise it will be for an incremental upgrade.",
+    )
+
+    parser.add_argument(
+        "--cscs",
+        type=str,
+        default="",
+        help="A comma-delimited string of CSCs affected. Only relevant for incremental upgrades.",
     )
 
     parser.add_argument(

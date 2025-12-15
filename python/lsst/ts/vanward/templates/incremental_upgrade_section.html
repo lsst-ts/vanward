@@ -1,0 +1,41 @@
+<h2>
+  <u>Incremental Release Revision {{revision}}</u>{% if summit_deploy %}
+  (<time datetime="{{summit_deploy}}">{{summit_deploy}}</time>)
+  {% endif %}
+</h2>
+
+<h2>Changelog</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <th><p><strong>Component affected</strong></p></th>
+      <th><p><strong>Associated Jira Tickets</strong></p></th>
+      <th><p><strong>New/Renamed/Removed Topics</strong></p></th>
+      <th><p><strong>Requester</strong></p></th>
+      <th><p><strong>Notes.</strong></p></th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Software versions</h2>
+
+<ul>
+  <li><p>tx_xml: {{ xml_version }} </p></li>
+  <li><p>Artifact Build Checklist:</p></li>
+</ul>
+
+<h2>Schedule</h2>
+
+<p>Release Branch Setup: {% if release_date %}<time datetime="{{release_date}}">{{release_date}}</time>{% endif %}</p>
+<p>Artifact Build: {% if artifact_build %}<time datetime="{{artifact_build}}">{{artifact_build}}</time>{% endif %}</p>
+<p>Container Build: {% if container_build %}<time datetime="{{container_build}}">{{container_build}}</time>{% endif %}</p>
+<p>Deploy and Test on BTS: {% if bts_deploy %}<time datetime="{{bts_deploy}}">{{bts_deploy}}</time>{% endif %}</p>
+<p>Deploy to Summit: {% if summit_deploy %}<time datetime="{{summit_deploy}}">{{summit_deploy}}</time>{% endif %}</p>
