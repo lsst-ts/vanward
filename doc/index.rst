@@ -170,14 +170,14 @@ An example usage of the script is shown below:
 The output from the script will print the issue keys for each site for inclusion into the cycle build Confluence page.
 
 
-Preparing for Deployment to a Site
-----------------------------------
+Relesasing announcements before deployment to a Site
+----------------------------------------------------
 
 When preparing for deploying a cycle build to a site (summit or a test stand), the best practice is to place an announcement on the appropriate Slack channel the day before the deployment.
-The ``release_announcement`` script can help with this task.
+For full Cycle upgrades, the ``release_announcement`` script can help with this task.
 It has flags to support multiple sites, but only one of those flags can be specified for a given run of the script.
 The date and time of the deployment as well as the cycle build number needs to be provided to the script.
-The time of the deployment is specified in the local time of the site as the script does no time zone conversion.
+The time of the deployment is specified in CLT, as it is the official time zone for the project and the script does not handle time conversion.
 If integration testing is taking place after the deployment at one of the test stands, the ending time of the testing needs to be specified to the script.
 See the ``--help`` flag on the script for more detailed information about the options.
 An example usage of the script is shown below:
@@ -188,13 +188,27 @@ An example usage of the script is shown below:
 
 The above incantation is for a summit deployment.
 
+When preparing for an incremental deployment to a site (summit or a test stand), use the ``incremental_release_announcement`` script instead.
+Aside from the flag indicating the site, the date and time of the deployment and the cycle number, the revision number and a comma separated string with the affected components need to be specified.
+If the deployment is to a test stand, the ScriptQueue to be used for testing after the deployment can also be specified.
+An example usage of the script is shown below:
+
+.. prompt:: bash
+
+  incremental_release_announcement -t 2025-12-19 14:30 42 --revision 15 --components "TCS,MTMount"
+
+Additionally, there is a script to announce Kafka broker rollouts due to TLS certificate renewals, which happen every 3 months.
+An example usage of the script is shown below:
+
+.. prompt:: bash
+
+  broker_rollout_announcement -b 2025-12-19 10:00
+
 .. note::
 
-  The script only outputs the string for the announcement.
-  It is up to the user to post that output into the appropriate Slack channel before the deployment.
-
-The script also provides text for a reminder announcement one hour prior to the deployment time.
-That text should be scheduled via the `Timy Slack app interface <https://slack.timy.website/>`_ in the time zone appropriate for the site.
+  These scripts only output the string for the announcements.
+  It is up to the user to post that output into the appropriate Slack channel.
+  The text can be scheduled via the `Timy Slack app interface <https://slack.timy.website/>`_ .
 
 .. _lsst.ts.vanward.developer_guide:
 

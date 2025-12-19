@@ -10,6 +10,8 @@ v1.12.0
 * Add create_confluence_page script
 * Update create_summit_upgrade_ticket script to support incremental upgrades
 * Update create_confluence_page script to support incremental upgrades
+* Add incremental_release_announcement script to announce incremental releases
+* Add broker_rollout_announcement script to announce Kafka broker rollouts
 
 
 v1.11.1

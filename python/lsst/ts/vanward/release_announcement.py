@@ -11,11 +11,7 @@ def main(opts: argparse.Namespace) -> None:
     opts : `argparse.Namespace`
         The script command-line arguments and options.
     """
-    if opts.tucson or opts.base:
-        upgrade_timezone = "Project Time"
-    else:
-        upgrade_timezone = "Summit Time"
-
+    upgrade_timezone = "CLT"
     upgrade_datetime = datetime.strptime(opts.upgrade_date, "%Y-%m-%d")
 
     upgrade_site = None
