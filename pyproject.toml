@@ -30,6 +30,7 @@ find_merges_without_release_tickets = "lsst.ts.vanward.find_merges_without_relea
 move_bucket_ticket_links = "lsst.ts.vanward.move_bucket_ticket_links:runner"
 release_announcement = "lsst.ts.vanward.release_announcement:runner"
 release_tickets = "lsst.ts.vanward.release_tickets:runner"
+incremental_release_announcement = "lsst.ts.vanward.incremental_release_announcement:runner"
 
 [tool.setuptools_scm]
 write_to = "python/lsst/ts/vanward/version.py"
