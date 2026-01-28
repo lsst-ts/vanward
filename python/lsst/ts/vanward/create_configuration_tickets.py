@@ -16,7 +16,7 @@ from jira import JIRA
 from . import ticket_helpers
 
 SITE_LIST = ["Tucson test stand", "Base test stand", "summit"]
-JIRA_TEAM = "Telescope and Site"
+JIRA_TEAM = "Deployment"
 
 __all__ = ["runner"]
 
@@ -37,11 +37,10 @@ def main(opts: argparse.Namespace) -> None:
         summary = f"Ready {site} deployment configuration for Cycle {opts.cycle_number}"
 
         issue = js.create_issue(
-            project={"key": "DM"},
+            project={"key": "OSW"},
             issuetype={"name": "Story"},
             summary=summary,
             assignee={"id": assignee},
-            components=[{"name": "ts_deployment"}],
             # RubinTeam
             customfield_10056={"value": JIRA_TEAM},
         )
