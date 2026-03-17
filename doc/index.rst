@@ -57,6 +57,14 @@ If a revision is specified with the ``--revision`` flag, an incremental upgrade 
 There are also optional arguments to specify dates for the schedule. Use the ``--help`` flag on the script for more information.
 This script also leverages the ``.auth/jira`` in your home directory.
 
+Changes included in a Cycle (and Incremental upgrades) are documented also in Jira tickets, linked to a release in the CAP project in Jira. The following script can be used to create the CAP release:
+
+.. prompt:: bash
+
+  create_cap_release -c 44 -r 1 27.0
+
+The script takes as an argument the version of the XML release. The cycle number and revision (if applicable) can also be passed through flags. Use the ``--help`` flag on the script for more information.
+
 Preparing for an Incremental Interface Update
 ---------------------------------------------
 

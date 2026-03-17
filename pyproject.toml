@@ -23,6 +23,7 @@ where = [ "python" ]
 check_conda_package_versions = "lsst.ts.vanward.check_conda_package_versions:runner"
 check_software_releases = "lsst.ts.vanward.check_software_releases:runner"
 collect_ticket_commits = "lsst.ts.vanward.collect_ticket_commits:runner"
+create_cap_release = "lsst.ts.vanward.create_cap_release:runner"
 create_configuration_tickets = "lsst.ts.vanward.create_configuration_tickets:runner"
 create_confluence_page = "lsst.ts.vanward.create_confluence_page:runner"
 create_summit_upgrade_ticket = "lsst.ts.vanward.create_summit_upgrade_ticket:runner"

@@ -12,6 +12,7 @@ v1.12.0
 * Update create_confluence_page script to support incremental upgrades
 * Add incremental_release_announcement script to announce incremental releases
 * Add broker_rollout_announcement script to announce Kafka broker rollouts
+* Add create_cap_release script to create a jira release in the CAP project and its associated jira ticket
 
 
 v1.11.1
