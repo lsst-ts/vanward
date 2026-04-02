@@ -15,6 +15,7 @@ REPOSITORY_MAP : `dict`
 """
 
 from dataclasses import dataclass
+
 from packaging.version import Version
 
 __all__ = [
@@ -46,7 +47,7 @@ class SoftwareVersions:
         return Version(self.current) >= Version(self.latest)
 
 
-ORG_LIST = ["lsst-ts", "lsst", "lsst-dm"]
+ORG_LIST = ["lsst-ts"]
 
 IGNORE_LIST = [
     "CYCLE",

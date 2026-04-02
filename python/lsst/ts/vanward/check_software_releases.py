@@ -27,6 +27,7 @@ CYCLE_REPO = "ts_cycle_build"
 RECIPES_REPO = "ts_recipes"
 ENV_FILE = "cycle/cycle.env"
 GITHUB_GRAPHQL_ENDPOINT = "https://api.github.com/graphql"
+NUMBER_OF_RESULTS_TO_FETCH = 80
 
 __all__ = ["runner"]
 
@@ -60,6 +61,36 @@ def fixup_version(version_str: str | None) -> str | None:
     return fixed_version
 
 
+def specific_graphql_query() -> gql.gql:
+    """Create a GraphQL query for a specific repository.
+
+    Returns
+    -------
+    `gql.gql`
+        The GraphQL query to execute.
+    """
+    return gql.gql(
+        """
+        query($owner: String!, $name: String!) {
+          repository(owner: $owner, name: $name) {
+            name
+            refs(
+              refPrefix: "refs/tags/"
+              first: 1
+              orderBy: {field: TAG_COMMIT_DATE, direction: DESC}
+            ) {
+              edges {
+                node {
+                  name
+                }
+              }
+            }
+          }
+        }
+        """
+    )
+
+
 def graphql_query(org_name: str, cursor: str | None = None) -> gql.gql:
     """Create a GraphQL query for the GitHub API.
 
@@ -76,9 +107,11 @@ def graphql_query(org_name: str, cursor: str | None = None) -> gql.gql:
         The GraphQL query to execute.
     """
     if cursor is None:
-        repo_str = "repositories(first: 100)"
+        repo_str = f"repositories(first: {NUMBER_OF_RESULTS_TO_FETCH})"
     else:
-        repo_str = f'repositories(first: 100, after: "{cursor}")'
+        repo_str = (
+            f'repositories(first: {NUMBER_OF_RESULTS_TO_FETCH}, after: "{cursor}")'
+        )
 
     return gql.gql(
         f"""
@@ -113,6 +146,33 @@ def graphql_query(org_name: str, cursor: str | None = None) -> gql.gql:
         }}
         """
     )
+
+
+def add_specific_repository_version(
+    client: gql.Client,
+    repository_versions: dict[str, str | None],
+    owner: str,
+    name: str,
+) -> None:
+    """Query the latest tag for a specific repository and store it by name.
+
+    Parameters
+    ----------
+    client : `gql.Client`
+        The GraphQL client to use.
+    repository_versions : `dict`
+        Mapping of repository name to the latest tag.
+    owner : `str`
+        The GitHub owner or organization name.
+    name : `str`
+        The GitHub repository name.
+    """
+    results = client.execute(
+        specific_graphql_query(), variable_values={"owner": owner, "name": name}
+    )
+    refs = results["repository"]["refs"]["edges"]
+    version = refs[0]["node"]["name"] if refs else None
+    repository_versions[name] = version
 
 
 def print_rate_limit(info: dict) -> None:
@@ -202,7 +262,11 @@ def main(opts: argparse.Namespace) -> None:
         has_next_page = True
         cursor = None
         while has_next_page:
-            results = client.execute(graphql_query(organization, cursor))
+            try:
+                results = client.execute(graphql_query(organization, cursor))
+            except Exception:
+                print(graphql_query(organization, cursor))
+                raise
             if opts.verbose:
                 print_rate_limit(results["rateLimit"])
             has_next_page = results["organization"]["repositories"]["pageInfo"][
@@ -226,6 +290,26 @@ def main(opts: argparse.Namespace) -> None:
             repository_name = check_helpers.REPOSITORY_MAP[package]
         else:
             repository_name = package
+        if repository_name in ["rubin_scheduler", "ctrl_oods", "phosim_utils"]:
+            match repository_name:
+                case "rubin_scheduler":
+                    add_specific_repository_version(
+                        client, repository_versions, owner="lsst", name=repository_name
+                    )
+                case "ctrl_oods":
+                    add_specific_repository_version(
+                        client,
+                        repository_versions,
+                        owner="lsst-dm",
+                        name=repository_name,
+                    )
+                case "phosim_utils":
+                    add_specific_repository_version(
+                        client,
+                        repository_versions,
+                        owner="lsst-dm",
+                        name=repository_name,
+                    )
         try:
             software_versions[package].latest = fixup_version(
                 repository_versions[repository_name]
