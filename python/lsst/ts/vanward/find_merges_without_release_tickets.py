@@ -59,6 +59,7 @@ def main(opts: argparse.Namespace) -> None:
             ticket.startswith("DM")
             or ticket.startswith("CAP")
             or ticket.startswith("TPC")
+            or ticket.startswith("OSW")
         ):
             if len(ticket.split("-")) == 2:
                 merge_tickets.append(ticket)
