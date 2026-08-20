@@ -234,7 +234,7 @@ def main(opts: argparse.Namespace) -> None:
 
     # Gather the cycle build versions
     software_versions = {}
-    with open(opts.cycle_build_dir / CYCLE_REPO / ENV_FILE) as ifile:
+    with open(opts.cycle_build_dir / ENV_FILE) as ifile:
         for line in ifile.readlines():
             if line.startswith("#"):
                 continue
@@ -329,9 +329,7 @@ def main(opts: argparse.Namespace) -> None:
             recipe_package = recipe
         try:
             with open(
-                os.path.join(
-                    opts.cycle_build_dir, RECIPES_REPO, recipe, "conda", "meta.yaml"
-                )
+                os.path.join(opts.recipe_dir, recipe, "conda", "meta.yaml")
             ) as mfile:
                 software_versions[recipe_package].latest = get_version_from_recipe(
                     mfile
@@ -371,7 +369,13 @@ def runner() -> None:
     parser.add_argument(
         "cycle_build_dir",
         type=pathlib.Path,
-        help=f"Path to where the {CYCLE_REPO} and {RECIPES_REPO} directories live.",
+        help=f"Path to where the {CYCLE_REPO} directory lives.",
+    )
+
+    parser.add_argument(
+        "recipe_dir",
+        type=pathlib.Path,
+        help=f"Path to where the {RECIPES_REPO} directory lives.",
     )
 
     args = parser.parse_args()
