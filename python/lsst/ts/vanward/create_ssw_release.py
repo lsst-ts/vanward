@@ -79,14 +79,6 @@ def runner() -> None:
         help="The revision for the cycle, relevant for incremental upgrades.",
     )
 
-    parser.add_argument(
-        "-a",
-        "--assignee",
-        type=str,
-        default="aibsen@lsst.org",
-        help="The assignee for the catch-all ticket. Default: aibsen@lsst.org.",
-    )
-
     args = parser.parse_args()
 
     main(args)
