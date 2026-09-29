@@ -199,7 +199,7 @@ def runner() -> None:
     parser.add_argument(
         "--task-participants",
         type=str,
-        default="mreuter,rbovill,aibsen",
+        default="mreuter,rbovill,amanda.ibsen",
         help="A comma-delimited string of Jira usernames for the participants involved in the deployment.",
     )
 
