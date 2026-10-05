@@ -69,18 +69,18 @@ Preparing for an Incremental Interface Update
 ---------------------------------------------
 
 An incremental release will involve just a small portion of the accumulated changes within the XML repository.
-Those changes are tracked by Jira tickets, the majority of them in a single bucket ticket within a Jira release in the CAP project.
+Those changes are tracked by Jira tickets, the majority of them in the SSW project.
 
-Once the tickets have been identified for the incremental release, the other tickets linked to the bucket ticket in the current version must be moved to a bucket ticket in the next version.
-The ``move_bucket_ticket_links`` script can assist in that movement.
+Once the tickets have been identified for the incremental release, the other tickets in the current XML version must be moved to the next release.
+The ``move_tickets`` script can assist in that movement.
 An example usage of the script is shown here:
 
 .. prompt:: bash
 
-  move_bucket_ticket_links CAP-1075 CAP-1077 DM-49538,DM-50524,DM-50734
+  move_tickets 28.1.0 29.0.0 SSW-3000,SSW-3001,SSW-3002
 
-The first argument is the Jira key of the bucket ticket in the current version.
-The second argument is the Jira key of the bucket ticket in the next version.
+The first argument is the current XML version as shown in the release in the SSW project.
+The second argument is the next XML version as shown in the release in the SSW project.
 The third argument is a comma-separated list of Jira ticket keys that need to be kept in the current version's bucket ticket.
 This script leverages the ``.auth/jira`` in your home directory.
 

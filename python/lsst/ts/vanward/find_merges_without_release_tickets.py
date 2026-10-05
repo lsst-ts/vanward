@@ -37,10 +37,6 @@ def main(opts: argparse.Namespace) -> None:
     release_tickets = []
     for issue in issues:
         release_tickets.append(issue.key)
-        # more_tickets = ticket_helpers.get_linked_tickets(issue, js)
-        # if more_tickets:
-        #     for ticket in more_tickets:
-        #         release_tickets.append(ticket.key)
 
     xml_repo = git.Repo(opts.xml_dir / XML_DIR)
     gitc = xml_repo.git
