@@ -32,16 +32,11 @@ def main(opts: argparse.Namespace) -> None:
 
     xml_version = f"{XML_DIR} {opts.xml_version}"
 
-    query = f'project = CAP AND fixVersion = "{xml_version}"'
+    query = f'project = SSW AND fixVersion = "{xml_version}"'
     issues = js.search_issues(query)
-    # print(f"Number of issues: {len(issues)}")
     release_tickets = []
     for issue in issues:
         release_tickets.append(issue.key)
-        more_tickets = ticket_helpers.get_linked_tickets(issue, js)
-        if more_tickets:
-            for ticket in more_tickets:
-                release_tickets.append(ticket.key)
 
     xml_repo = git.Repo(opts.xml_dir / XML_DIR)
     gitc = xml_repo.git
@@ -59,13 +54,11 @@ def main(opts: argparse.Namespace) -> None:
             ticket.startswith("DM")
             or ticket.startswith("CAP")
             or ticket.startswith("TPC")
+            or ticket.startswith("SSW")
             or ticket.startswith("OSW")
         ):
             if len(ticket.split("-")) == 2:
                 merge_tickets.append(ticket)
-
-    # print(release_tickets)
-    # print(merge_tickets)
 
     print("Missing tickets:")
     missing = 0

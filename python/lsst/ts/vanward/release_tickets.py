@@ -30,25 +30,21 @@ def main(opts: argparse.Namespace) -> None:
 
     xml_version = f"ts_xml {opts.xml_version}"
 
-    query = f'project = CAP AND fixVersion = "{xml_version}"'
+    query = f'project = SSW AND fixVersion = "{xml_version}"'
     issues = js.search_issues(query)
     print(f"Number of issues: {len(issues)}")
     for issue in issues:
-        print(f"{issue.key} ({issue.fields.assignee}): {issue.fields.status}")
-        more_tickets = ticket_helpers.get_linked_tickets(issue, js)
-        if more_tickets:
-            for ticket in more_tickets:
-                if f"{ticket.fields.status}" not in CLOSED_TICKET_STATUS:
-                    xmldone = "xmldone" in ticket.fields.labels
-                else:
-                    xmldone = True
-                if xmldone:
-                    donechar = "\u2713"
-                else:
-                    donechar = "\u2717"
-                print(
-                    f" * {ticket} ({ticket.fields.assignee}): {ticket.fields.status} ({donechar})"
-                )
+        if f"{issue.fields.status}" not in CLOSED_TICKET_STATUS:
+            xmldone = "xmldone" in issue.fields.labels
+        else:
+            xmldone = True
+        if xmldone:
+            donechar = "\u2713"
+        else:
+            donechar = "\u2717"
+        print(
+            f" * {issue.key} ({issue.fields.assignee}): {issue.fields.status} ({donechar})"
+        )
 
 
 def runner() -> None:

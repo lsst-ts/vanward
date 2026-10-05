@@ -2,6 +2,9 @@
 Version History
 ===============
 
+v1.12.1
+-------
+* Update move_tickets, find_merges_without_release and create_configuration_tickets to use SSW project.
 v1.12.0
 -------
 

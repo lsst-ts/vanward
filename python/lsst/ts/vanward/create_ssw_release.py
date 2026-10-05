@@ -40,25 +40,10 @@ def main(opts: argparse.Namespace) -> None:
 
     js.create_version(
         name=release_name,
-        project="CAP",
+        project="SSW",
         description=release_description,
     )
-    print(f"Created release '{release_name}' in CAP project.")
-
-    issue_fields = dict(
-        project={"key": "CAP"},
-        issuetype={"name": "Story"},
-        summary=f"Catch all ticket for OSW work for XML {opts.release}",
-        fixVersions=[{"name": release_name}],
-        components=[{"name": "None"}],
-    )
-
-    if opts.assignee:
-        assignee = ticket_helpers.get_user_ids(opts.assignee, js)
-        issue_fields["assignee"] = {"id": assignee}
-
-    issue = js.create_issue(**issue_fields)
-    print(f"Created ticket {issue.key}: {issue.fields.summary}")
+    print(f"Created release '{release_name}' in SSW project.")
 
 
 def runner() -> None:
@@ -92,14 +77,6 @@ def runner() -> None:
         type=int,
         default=None,
         help="The revision for the cycle, relevant for incremental upgrades.",
-    )
-
-    parser.add_argument(
-        "-a",
-        "--assignee",
-        type=str,
-        default="aibsen@lsst.org",
-        help="The assignee for the catch-all ticket. Default: aibsen@lsst.org.",
     )
 
     args = parser.parse_args()

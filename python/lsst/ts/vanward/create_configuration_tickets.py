@@ -37,7 +37,7 @@ def main(opts: argparse.Namespace) -> None:
         summary = f"Ready {site} deployment configuration for Cycle {opts.cycle_number}"
 
         issue = js.create_issue(
-            project={"key": "OSW"},
+            project={"key": "SSW"},
             issuetype={"name": "Story"},
             summary=summary,
             assignee={"id": assignee},
